@@ -1,10 +1,1 @@
-{
-  "meta": {
-    "username": "chbailly",
-    "repositoryName": "chbailly.github.io",
-    "branch": "master"
-  },
-  "theme": {
-    "name": "Casper"
-  }
-}
+{"meta":{"username":"chbailly","repositoryName":"chbailly.github.io","branch":"master"},"site":{"title":"mon site","url":"https://chbailly.github.io"},"socialnetwork":{},"theme":{"name":"Casper","url":"//chbailly.github.io/themes/Casper"}}
