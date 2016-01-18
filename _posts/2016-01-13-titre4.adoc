@@ -1,1 +1,4 @@
 = titre4
+
+* les operations < (que doit on definir ?)
+* 
