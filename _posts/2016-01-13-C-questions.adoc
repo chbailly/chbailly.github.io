@@ -1,4 +1,22 @@
-= titre4
+= C++ questions
 
-* les operations < (que doit on definir ?)
-* 
+* les operations < 
+
+Intéret de definir un operateur externe
+
+  Type c = 1 + Type(2);
+
+* conversions implicites (from et to)
+
+ class B {
+   public:
+  // conversion from A (constructor):
+  B (const A& x) {}
+  // conversion to A (type-cast operator)
+  operator A() {return A();}
+  };
+
+
+
+
+
