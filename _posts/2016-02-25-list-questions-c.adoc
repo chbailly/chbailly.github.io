@@ -1,5 +1,10 @@
 = list questions c++
 
-== hello, world
-
-My first post.
+ map operator [] versus insert
+ move constructor
+ std::function
+ appel methode dans constructeur
+ 5 règles 
+ covariance
+ traits
+ 
