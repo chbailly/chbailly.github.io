@@ -16,6 +16,11 @@ Intéret de definir un operateur externe
   operator A() {return A();}
   };
 
+* std::map, insert versus []. 
+** le [] est moins efficace, passe par le contructeur par défaut puis initie la valeur
+** Le insert permet de savoir si une nouvelle valeur a été insérée?.
+
+
 
 
 
