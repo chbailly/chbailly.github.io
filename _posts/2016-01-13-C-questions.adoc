@@ -18,10 +18,38 @@ Intéret de definir un operateur externe
 
 * std::map, insert versus []. 
 ** le [] est moins efficace, passe par le contructeur par défaut puis initie la valeur
-** Le insert permet de savoir si une nouvelle valeur a été insérée?.
+** Le insert permet de savoir si une nouvelle valeur a été insérée.
 
 
 
+* std::function
+
+encapsule n'importe quel type de fonction (membre, lambda, ...)
+
+    std::function<void(const Foo&, int)> f_add_display =      &Foo::print_add;
+    Foo foo(314159);
+    f_add_display(foo, 1);
+    
+* type traits/policy traits
+
+  template<> 
+  struct algorithm_selector< true > { 
+    template< typename T > 
+    static void implementation( T& object )   { 
+      object.optimised_implementation(); 
+    } 
+  };
+
+  template< typename T > 
+  void algorithm( T& object ) { 
+    algorithm_selector< supports_optimised_implementation< T >::value >::implementation(object); 
+  }
+  
+  template<> 
+  struct 
+     supports_optimised_implementation< ObjectB > { 
+        static const bool value = true; 
+  };
 
 
 
