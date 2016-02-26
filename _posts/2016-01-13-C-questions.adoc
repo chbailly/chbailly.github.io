@@ -50,6 +50,19 @@ encapsule n'importe quel type de fonction (membre, lambda, ...)
      supports_optimised_implementation< ObjectB > { 
         static const bool value = true; 
   };
+  
+  * rvalue reference
+  
+  Un tres bon lien
+  http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2027.html#Move_Semantics
+  
+  Résumé
+  std::move: renvoie une rvalue, c'est juste un cast en rvalue. Le contenu est rendu volable via le move constructor ou le move assignement operator
+  
+  Certains types sont non copyables mais movable (unique_ptr, thread, fstream). On peut trier des vecteurs<unique_ptr<A>>
+  
+  Perfect forwarding: A voir dnas le lien
+  
 
 
 
