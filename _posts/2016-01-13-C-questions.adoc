@@ -61,6 +61,8 @@ encapsule n'importe quel type de fonction (membre, lambda, ...)
   
   Certains types sont non copyables mais movable (unique_ptr, thread, fstream). On peut trier des vecteurs<unique_ptr<A>>
   
+  * Universal reference: A voir
+  
   Perfect forwarding: A voir dnas le lien
   
 
