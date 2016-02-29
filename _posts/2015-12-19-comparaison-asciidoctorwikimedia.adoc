@@ -1,6 +1,6 @@
 = comparaison asciidoctor/wikimedia
-
 :toc:
+
 [[debut]]
 
 == links
