@@ -1,5 +1,22 @@
 = comparaison asciidoctor/wikimedia
 
+== blocs
+
+[cols="2*"]
+|====
+a|
+....
+ 
+ ---- ou [listing] paragraph
+ 
+ on peut mettre code source [souce, perl]
+....
+a|
+[source,perl]
+----
+use DBI;
+|====
+
 == admonitions
 
 [cols="2*"]
