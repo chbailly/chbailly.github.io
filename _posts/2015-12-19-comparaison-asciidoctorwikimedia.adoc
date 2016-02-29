@@ -1,3 +1,58 @@
-= autre
+= comparaison asciidoctor/wikimedia
 
-second post
+
+
+[cols="2*", options="header"] 
+|===
+|asciidoctor
+|result
+
+a|
+[literal]
+....
+.An example table
+[options="header,footer"]
+\|=======================
+\|Col 1\|Col 2      \|Col 3
+\|1    \|Item 1     \|a
+\|2    \|Item 2     \|b
+\|=======================
+....
+a|
+--
+.An example table
+[cols="3*",options="header"]
+!=======================
+!Col 1!Col 2      !Col 3
+!1    !Item 1     !a
+!2    !Item 2     !b
+!=======================
+--
+
+2+a|
+* cols="2*^": multiplier de formatage
+* cols="<,^,.>": colonne aligné gauche,centre, droite (vertical)
+* cols ="2,2,4" pour taille relative
+* a: pour style asciidoc
+* <format>\|: en début de cell pour formatage spécifique cell
+* 2+ : pour span horiz sur 2 col, .2+ span vert
+....
+|===
+
+
+Text `code` text
+
+ code
+
+....
+code code
+code code
+....
+
+[source,perl]
+.wiki.pl
+----
+code code
+code code
+----
+
