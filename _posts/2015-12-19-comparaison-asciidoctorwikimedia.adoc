@@ -1,6 +1,17 @@
 = comparaison asciidoctor/wikimedia
 
+== admonitions
 
+[cols="2*"]
+|====
+| TIP: a tip
+a|  TIP: a tip
+| IMPORTANT:important
+a| IMPORTANT: important
+2+^|Et les autres...:warning caution
+|====
+
+== table
 
 [cols="2*", options="header"] 
 |===
@@ -29,30 +40,5 @@ a|
 !=======================
 --
 
-2+a|
-* cols="2*^": multiplier de formatage
-* cols="<,^,.>": colonne aligné gauche,centre, droite (vertical)
-* cols ="2,2,4" pour taille relative
-* a: pour style asciidoc
-* <format>\|: en début de cell pour formatage spécifique cell
-* 2+ : pour span horiz sur 2 col, .2+ span vert
-....
-|===
 
-
-Text `code` text
-
- code
-
-....
-code code
-code code
-....
-
-[source,perl]
-.wiki.pl
-----
-code code
-code code
-----
 
