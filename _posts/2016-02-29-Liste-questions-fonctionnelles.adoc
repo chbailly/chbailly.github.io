@@ -1,0 +1,7 @@
+= Liste questions fonctionnelles
+
+* greeks
+* surfaces de volatilité
+* pricing d'un swap
+* ratchet, corridor
+
