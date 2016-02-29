@@ -6,11 +6,27 @@
 
 [cols="2*"]
 |====
+
 a|
 [literal]
 https://url[text du lien]
 a|https://oddmuse.org[text du lien]
+
+a|
+lien interne
+[literal]
+link:name[text du lien]
+a|https://oddmuse.org[text du lien]
+
+a|
+[literal]
+ [[anchor]]
+|
+[[anchor]]
+
 |====
+
+
 
 == blocs
 
@@ -51,6 +67,7 @@ Peut servir pour admonitions complexes (en MAJ)
 a| 
 [example]
 info *example*
+
 
 [TIP]
 ====
