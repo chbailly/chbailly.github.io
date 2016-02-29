@@ -1,0 +1,86 @@
+= multithreading
+
+== threads, groups
+----
+void change_count(){]
+
+boost::thread_group threads;
+for (int i=0; i < num_threads; ++i)
+   threads.create_thread(&change_count);
+
+   threads.join_all();
+}
+----
+
+== synchronization (locks)
+
+* locks guard (RAII, inutile d'appeler lock/unlock)
+
+  for (int i = 0; i < 5; ++i)
+  {
+    wait(1);
+    boost::lock_guard<boost::mutex> lock{mutex};
+    std::cout << "Thread " << get_id() << ": " << i << std::endl;
+  }
+
+* shared_mutex (lock par shared_lock ou unique lock)
+
+----
+  void write_acess()
+  {
+    boost::unique_lock<boost::mutex> lock{mutex};
+  }
+  
+  void read_accesst()
+  {
+    for (int i = 0; i < 3; ++i)
+    {
+    boost::shared_lock<boost::shared_mutex> lock{mutex};
+    std::cout << random_numbers.back() << '\n';
+    }
+  }
+----
+
+== future, promise
+
+* version complète
+On peut faire un get sur un futur
+On fait un set sur une promise
+
+On peut récupérer le futur associée d'une promise
+
+----
+void accumulate(boost::promise<int> &p)
+{
+  int sum = 0;
+  for (int i = 0; i < 5; ++i)
+    sum += i;
+  p.set_value(sum);
+}
+
+int main()
+{
+  boost::promise<int> p;
+  boost::future<int> f = p.get_future();
+  boost::thread t{accumulate, std::ref(p)};
+  std::cout << f.get() << '\n';
+}
+----
+
+
+* version simplifiée (avec async)
+----
+int accumulate()
+{
+  int sum = 0;
+  for (int i = 0; i < 5; ++i)
+    sum += i;
+  return sum;
+}
+
+int main()
+{
+  boost::future<int> f = boost::async(accumulate);
+  std::cout << f.get() << '\n';
+}
+----
