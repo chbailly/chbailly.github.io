@@ -1,6 +1,7 @@
 = comparaison asciidoctor/wikimedia
 
 :toc:
+[[debut]]
 
 == links
 
@@ -21,8 +22,14 @@ a|link:titre4[titre4]
 a|
 [literal]
  [[anchor]]
-|
-[[anchor]]
+a|
+[[encre]]
+
+a|
+[literal]
+ <<anchor>>
+a|
+link:debut
 
 |====
 
