@@ -1,5 +1,17 @@
 = comparaison asciidoctor/wikimedia
 
+:toc:
+
+== links
+
+[cols="2*"]
+|====
+a|
+[literal]
+https://url[text du lien]
+a|https://oddmuse.org[text du lien]
+|====
+
 == blocs
 
 [cols="2*"]
@@ -7,14 +19,55 @@
 a|
 ....
  
- ---- ou [listing] paragraph
+---- ou [listing] paragraph
  
- on peut mettre code source [souce, perl]
+exemple 
+[source, perl]
+----
 ....
 a|
 [source,perl]
 ----
 use DBI;
+----
+
+|
+.... ou [literal] paragraph
+|
+
+a| 
+[literal] 
+**** ou [sidebar]
+a| 
+[sidebar]
+info bloc
+
+a| 
+[literal] 
+ ==== ou [example]
+ bloc normal (substitutions)
+ 
+Peut servir pour admonitions complexes (en MAJ) 
+a| 
+[example]
+info *example*
+
+[TIP]
+====
+* tip1
+* tip2
+
+a| 
+[literal] 
+____ ou [quote]
+
+a| 
+[quote, Descartes, discours de la méthode]
+____
+Je pense donc je suis
+____
+
+
 |====
 
 == admonitions
