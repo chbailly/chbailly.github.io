@@ -16,7 +16,7 @@ a|
 lien interne
 [literal]
 link:name[text du lien]
-a|https://oddmuse.org[text du lien]
+a|link:titre4[titre4]
 
 a|
 [literal]
