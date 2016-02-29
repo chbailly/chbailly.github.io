@@ -1,4 +1,6 @@
-= comparaison asciidoctor/wikimedia
+= asciidoctor
+
+=== toc 
 :toc:
 
 [[debut]]
