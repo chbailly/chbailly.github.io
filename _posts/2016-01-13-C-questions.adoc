@@ -22,6 +22,26 @@ Intéret de definir un operateur externe
 ** Le insert permet de savoir si une nouvelle valeur a été insérée.
 
 
+* constructeur/desttructeur
+
+** peut jeter des exceptions
+** ne doit pas appeler de fonction virtuelle
+** un destructeur est virtuel
+** ne doit *pas* jeter d'exception. Pourrait déclencher plusieurs exceptions lors de l'unstacking)
+
+
+* volatile
+----
+static int foo;
+
+void bar(void) {
+    foo = 0;
+
+    while (foo != 255)
+         ;
+}
+----
+La variable peut être modifiée par un thread => on empêche les optimisations.
 
 * std::function
 
@@ -52,19 +72,29 @@ encapsule n'importe quel type de fonction (membre, lambda, ...)
         static const bool value = true; 
   };
   
-  * rvalue reference
+== rvalue reference
+
+
+std::move: renvoie une rvalue, c'est juste un cast en rvalue. Le contenu est rendu volable via le move constructor ou le move assignement operator
+
+2 opérations ajoutées:
+
+* move constructor
+* move assignment operator
+Certains types sont non copyables mais movable (unique_ptr, thread, fstream). On peut trier des vecteurs<unique_ptr<A>>
+
+* rvalue reference
   
-  Un tres bon lien
-  http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2027.html#Move_Semantics
+ 
+http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2027.html#Move_Semantics[lien open-std]
   
-  Résumé
-  std::move: renvoie une rvalue, c'est juste un cast en rvalue. Le contenu est rendu volable via le move constructor ou le move assignement operator
+ == rule of threee
+ 
+ Si on doit définir soit le destructeur, ou le constructeur par copie ou 'opérateur d'assignation c'est qu'on doit définir les 3. On doit gérer les ressources différemment de l'implem par défaut.
   
-  Certains types sont non copyables mais movable (unique_ptr, thread, fstream). On peut trier des vecteurs<unique_ptr<A>>
+* Universal reference: A voir
   
-  * Universal reference: A voir
-  
-  Perfect forwarding: A voir dnas le lien
+Perfect forwarding: A voir dans le lien
   
 
 
