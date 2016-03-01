@@ -1,0 +1,73 @@
+= git
+
+Lien
+https://www.atlassian.com/git/tutorials/[git tutorial]
+
+=== Création repo central
+
+----
+git init --bare my-project.git
+----
+option --bare  c'est le repo central. Le suffixe .git indique que c'est le repo central.
+
+=== clone
+
+----
+git clone <repo> <directory>
+----
+
+== add
+
+[IMPORTANT]
+====
+add  est != svn. Il permet d'ajouter avant commit les fichiers à modifier pour le commit
+L'option -a (all) du commit permet d'avoir un fonctionnement similaire à svn
+====
+
+----
+git add <file|directory>
+git commit -m "comment"
+----
+
+=== status
+
+* staged : fichier ayant été ajouté (pour commit)
+* unstaged: non prévu pour le commit
+* untracked: N'a jamais été ajouté (fichier binaire,...)
+
+
+=== checkout
+
+----
+git checkout <branch|file|commit>
+----
+* On switch toute la working copie vers le nouveau snapshot. Il faut donc mieux avoir commité avant de switcher
+* Lorsqu'on le fait sur un fichier, ne change pas d'état (on pointe sur le même snapshot), on peut donc commiter pour reverter
+
+[IMPORTANT]
+====
+* lorsqu'on le fait sur un <commit>, on ne peut rien faire... sur un detach state. On ne peut travailler que sur des branches ou le master.
+====
+
+----
+git revert <ommit>
+----
+reverte un commit en  ajoutant un commit qui revert la modif
+
+==== branch
+* création
+---- 
+git branch <branch>
+----
+
+* merge
+----
+git merge <branch>
+----
+
+* rebase
+----
+git rebase <branch>
+----
+
+Pour se resynchroniser avec le master par exemple, on déplace la branche et ça crée les commit nécessaires.
