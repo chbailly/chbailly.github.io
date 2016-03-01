@@ -1,5 +1,6 @@
 = C++ questions
 
+
 * les operations < 
 
 Intéret de definir un operateur externe
