@@ -17,7 +17,7 @@ Intéret de definir un operateur externe
 class B {
 public:
   // conversion from A (constructor):
-  B (const A& x) {}
+  B (const A& x) {}/
   // conversion to A (type-cast operator)
   operator A() {return A();}
 };
@@ -54,14 +54,23 @@ void bar(void) {
 ----
 La variable peut être modifiée par un thread => on empêche les optimisations.
 
-* std::function
+== lambda function
+
+std::function
 
 encapsule n'importe quel type de fonction (membre, lambda, ...)
 
     std::function<void(const Foo&, int)> f_add_display =      &Foo::print_add;
     Foo foo(314159);
     f_add_display(foo, 1);
-    
+
+== boost bind
+
+[source,c++]
+----
+boost::function<void (int)> f2( boost::bind( &myclass::fun2, this, _1 ) );
+----
+
 == type traits/policy traits
 
 [source,c++]
