@@ -14,29 +14,31 @@ anchor:debut
 
 a|
 [literal]
+.link to external page
 https://url[text du lien]
 a|https://oddmuse.org[text du lien]
 
 a|
-lien interne
+.link to internal page
 [literal]
 link:name[text du lien]
-a|link:titre4[titre4]
+a|link:titre4[texte du lien]
 
 a|
-[literal]
- [[anchor]]
-a|
-[[encre]]
-
-a|
+.set anchor
 ....
 anchor:nom_anchor[nom_affiché]
 
 Faire un :setanchors: ?
 ....
+|
 a|
-<<debut,revenir debut>>
+.call anchor
+[literal]
+ <<anchor>>
+a|
+
+
 
 |====
 
