@@ -28,10 +28,11 @@ a|
 [[encre]]
 
 a|
-[literal]
+....
 anchor:nom_anchor[nom_affiché]
 
 Faire un :setanchors: ?
+....
 a|
 <<debut,revenir debut>>
 
