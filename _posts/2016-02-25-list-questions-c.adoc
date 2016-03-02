@@ -1,5 +1,5 @@
 = list questions c++
-:setanchors:
+:setanchor:
 
 <<fin>>
 
@@ -54,5 +54,6 @@ Nested class
 
 
 
-[[fin]] 
+anchor:fin[fin]
+
  
