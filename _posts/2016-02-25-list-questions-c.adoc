@@ -1,6 +1,6 @@
 = list questions c++
 
-link:C-questions[liste questions c++]
+link:C-questions.html[liste questions c++]
 
  map operator [] versus insert
  move constructor
