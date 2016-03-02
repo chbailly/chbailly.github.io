@@ -1,5 +1,5 @@
 = titre 1
-
+:language: python
 para
 
 = titre 2
@@ -15,3 +15,14 @@ BlockProcessor <|-- DiagramBlock
 DiagramBlock <|-- DitaaBlock
 DiagramBlock <|-- PlantUmlBlock
 ....
+
+
+[source,python]
+if n < 0: print 'Hello World!'
+
+[source,perl]
+====
+sub f() {
+   my @t = (1,2);
+}
+====
