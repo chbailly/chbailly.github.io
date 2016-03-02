@@ -84,6 +84,7 @@ struct
    supports_optimised_implementation< ObjectB > { 
       static const bool value = true; 
 };
+----
   
 == rvalue reference
 
