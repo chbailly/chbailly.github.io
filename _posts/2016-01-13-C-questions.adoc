@@ -56,6 +56,8 @@ La variable peut être modifiée par un thread => on empêche les optimisations.
 
 == mutable 
 
+Une donnée membre mutable peut être modifiée dans une méthode const. Ce sont en général des attributs techniques(optim), l'objet reste fonctionnellement const.
+
 == lambda function
 
 std::function
