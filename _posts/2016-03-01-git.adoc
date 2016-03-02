@@ -3,6 +3,8 @@
 Lien
 https://www.atlassian.com/git/tutorials/[git tutorial]
 
+:toc:
+
 === Création repo central
 
 ----
@@ -10,7 +12,7 @@ git init --bare my-project.git
 ----
 option --bare  c'est le repo central. Le suffixe .git indique que c'est le repo central.
 
-=== clone
+== clone
 
 ----
 git clone <repo> <directory>
@@ -29,14 +31,19 @@ git add <file|directory>
 git commit -m "comment"
 ----
 
-=== status
+== log
+
+git log <commit>..<commit>
+
+
+== status
 
 * staged : fichier ayant été ajouté (pour commit)
 * unstaged: non prévu pour le commit
 * untracked: N'a jamais été ajouté (fichier binaire,...)
 
 
-=== checkout
+== checkout
 
 ----
 git checkout <branch|file|commit>
@@ -54,20 +61,41 @@ git revert <ommit>
 ----
 reverte un commit en  ajoutant un commit qui revert la modif
 
-==== branch
-* création
+== branch
+=== création
 ---- 
 git branch <branch>
 ----
 
-* merge
+=== merge
 ----
 git merge <branch>
 ----
-
-* rebase
+=== rebase
 ----
 git rebase <branch>
 ----
 
 Pour se resynchroniser avec le master par exemple, on déplace la branche et ça crée les commit nécessaires.
+
+== operations sur repo dentral
+
+=== fetch
+
+----
+git fetch repo [branch]
+----
+
+utiliser repo=origin pour le nom du repo d'orgine
+
+*Crée une branche* nommée repo/xxxx (par exemple origin/master)
+
+Faire ensuite un git merge de cette branche (on aura fait l'équivalent d'un svn update dans ce cas)
+
+=== pull
+
+----
+git pull repo [branch]
+----
+Fais le fetch + merge <=> svn update
+
