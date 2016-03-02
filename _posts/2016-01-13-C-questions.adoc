@@ -1,7 +1,9 @@
 = C++ questions
 :toc: macro
+:language: c++
 
 toc::[]
+
 
 == les operations < 
 
@@ -11,13 +13,16 @@ Intéret de definir un operateur externe
 
 == conversions implicites (from et to)
 
- class B {
-   public:
+[source]
+----
+class B {
+public:
   // conversion from A (constructor):
   B (const A& x) {}
   // conversion to A (type-cast operator)
   operator A() {return A();}
-  };
+};
+----
 
 * std::map, insert versus []. 
 ** le [] est moins efficace, passe par le contructeur par défaut puis initie la valeur
@@ -36,6 +41,8 @@ Si on doit définir soit le destructeur, ou le constructeur par copie ou 'opéra
 ** ne doit *pas* jeter d'exception. Pourrait déclencher plusieurs exceptions lors de l'unstacking)
 
 == volatile
+
+[source]
 ----
 static int foo;
 
@@ -58,24 +65,26 @@ encapsule n'importe quel type de fonction (membre, lambda, ...)
     
 == type traits/policy traits
 
-  template<> 
-  struct algorithm_selector< true > { 
+[source]
+----
+template<> 
+struct algorithm_selector< true > { 
     template< typename T > 
     static void implementation( T& object )   { 
       object.optimised_implementation(); 
     } 
-  };
+};
 
-  template< typename T > 
-  void algorithm( T& object ) { 
-    algorithm_selector< supports_optimised_implementation< T >::value >::implementation(object); 
-  }
+template< typename T > 
+void algorithm( T& object ) { 
+  algorithm_selector< supports_optimised_implementation< T >::value >::implementation(object); 
+}
   
-  template<> 
-  struct 
-     supports_optimised_implementation< ObjectB > { 
-        static const bool value = true; 
-  };
+template<> 
+struct 
+   supports_optimised_implementation< ObjectB > { 
+      static const bool value = true; 
+};
   
 == rvalue reference
 
