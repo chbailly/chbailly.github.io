@@ -1,7 +1,43 @@
 = Liste questions fonctionnelles
+:toc: macro
 
-* greeks
-* surfaces de volatilité
+toc::[]
+
+== forward/future
+
+* forward
+
+Marché de gré à gré
+
+FRA::
+forward rate agreement
+
+
+* future = marché à terme
+
+cotation:
+1 - taux ecompté
+
+== greeks
+
+delta::
+dérivé première prix sous-jacent
+
+gamma::
+dérivée seconde
+
+theta::
+derivé du prix/temps
+
+vega::
+dérivé prix/volatilité
+
+== surface de volatilité
+
+Courbe de la voolatilité implicite en fonction de la maturité et du strike
+
+
+
 * pricing d'un swap
 * ratchet, corridor
 
