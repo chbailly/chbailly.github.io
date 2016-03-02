@@ -1,4 +1,4 @@
-= Liste questions fonctionnelles
+= Questions fonctionnelles
 :toc: macro
 
 toc::[]
