@@ -1,5 +1,7 @@
 = list questions c++
 
+link:C-questions[liste questions c++]
+
  map operator [] versus insert
  move constructor
  std::function
