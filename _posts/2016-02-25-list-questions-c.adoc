@@ -1,5 +1,5 @@
 = list questions c++
-:setanchor:
+:setanchors:
 
 <<fin>>
 
