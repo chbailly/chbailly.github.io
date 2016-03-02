@@ -1,6 +1,5 @@
 = C++ questions
 :toc: macro
-:language: c++
 
 toc::[]
 
@@ -42,7 +41,7 @@ Si on doit définir soit le destructeur, ou le constructeur par copie ou 'opéra
 
 == volatile
 
-[source]
+[source,c++]
 ----
 static int foo;
 
@@ -65,7 +64,7 @@ encapsule n'importe quel type de fonction (membre, lambda, ...)
     
 == type traits/policy traits
 
-[source]
+[source,c++]
 ----
 template<> 
 struct algorithm_selector< true > { 
