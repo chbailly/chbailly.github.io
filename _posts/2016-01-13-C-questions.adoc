@@ -13,7 +13,7 @@ Intéret de definir un operateur externe
 
 == conversions implicites (from et to)
 
-[source]
+[source,c++]
 ----
 class B {
 public:
