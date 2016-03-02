@@ -1,9 +1,17 @@
 = asciidoctor
+:toc: macro
 
-=== toc 
-:toc:
+toc::[]
 
-anchor:debut
+== toc 
+
+[source]
+----
+// au debut
+:toc: macro
+
+toc::[]
+----
 
 
 
