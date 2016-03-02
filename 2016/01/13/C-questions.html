@@ -30,14 +30,14 @@
     <meta property="og:site_name" content="mon site" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="C++ questions" />
-    <meta property="og:description" content="Table of Contents les operations &amp;lt; conversions implicites (from et to) constructeur/destructeur rule of three volatile type traits/policy traits rvalue reference Universal reference: A voir les operations &amp;lt; Intéret de definir un operateur externe Type c = 1 + Type(..." />
+    <meta property="og:description" content="Table of Contents les operations &amp;lt; conversions implicites (from et to) constructeur/destructeur rule of three volatile lambda function boost bind type traits/policy traits rvalue reference Universal reference: A voir les operations &amp;lt; Intéret de definir un operateur externe..." />
     <meta property="og:url" content="https://chbailly.github.io/2016/01/13/C-questions.html" />
     <meta property="article:published_time" content="2016-01-13T00:00:00.000Z" />
-    <meta property="article:modified_time" content="2016-03-02T11:03:36.993Z" />
+    <meta property="article:modified_time" content="2016-03-02T14:58:25.419Z" />
     
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="C++ questions" />
-    <meta name="twitter:description" content="Table of Contents les operations &amp;lt; conversions implicites (from et to) constructeur/destructeur rule of three volatile type traits/policy traits rvalue reference Universal reference: A voir les operations &amp;lt; Intéret de definir un operateur externe Type c = 1 + Type(..." />
+    <meta name="twitter:description" content="Table of Contents les operations &amp;lt; conversions implicites (from et to) constructeur/destructeur rule of three volatile lambda function boost bind type traits/policy traits rvalue reference Universal reference: A voir les operations &amp;lt; Intéret de definir un operateur externe..." />
     <meta name="twitter:url" content="https://chbailly.github.io/2016/01/13/C-questions.html" />
     
     <script type="application/ld+json">
@@ -55,8 +55,8 @@
     "headline": "C++ questions",
     "url": "https://chbailly.github.io/2016/01/13/C-questions.html",
     "datePublished": "2016-01-13T00:00:00.000Z",
-    "dateModified": "2016-03-02T11:03:36.993Z",
-    "description": "Table of Contents les operations &amp;lt; conversions implicites (from et to) constructeur/destructeur rule of three volatile type traits/policy traits rvalue reference Universal reference: A voir les operations &amp;lt; Intéret de definir un operateur externe Type c = 1 + Type(..."
+    "dateModified": "2016-03-02T14:58:25.419Z",
+    "description": "Table of Contents les operations &amp;lt; conversions implicites (from et to) constructeur/destructeur rule of three volatile lambda function boost bind type traits/policy traits rvalue reference Universal reference: A voir les operations &amp;lt; Intéret de definir un operateur externe..."
 }
     </script>
 
@@ -154,6 +154,8 @@
 </ul>
 </li>
 <li><a href="#_volatile">volatile</a></li>
+<li><a href="#_lambda_function">lambda function</a></li>
+<li><a href="#_boost_bind">boost bind</a></li>
 <li><a href="#_type_traits_policy_traits">type traits/policy traits</a></li>
 <li><a href="#_rvalue_reference">rvalue reference</a></li>
 <li><a href="#_universal_reference_a_voir">Universal reference: A voir</a></li>
@@ -182,7 +184,7 @@
 <pre class="highlight"><code class="language-c++" data-lang="c++">class B {
 public:
   // conversion from A (constructor):
-  B (const A&amp; x) {}
+  B (const A&amp; x) {}/
   // conversion to A (type-cast operator)
   operator A() {return A();}
 };</code></pre>
@@ -252,12 +254,13 @@ void bar(void) {
 <div class="paragraph">
 <p>La variable peut être modifiée par un thread &#8658; on empêche les optimisations.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_lambda_function">lambda function</h2>
+<div class="sectionbody">
+<div class="paragraph">
 <p>std::function</p>
-</li>
-</ul>
 </div>
 <div class="paragraph">
 <p>encapsule n&#8217;importe quel type de fonction (membre, lambda, &#8230;&#8203;)</p>
@@ -267,6 +270,16 @@ void bar(void) {
 <pre>std::function&lt;void(const Foo&amp;, int)&gt; f_add_display =      &amp;Foo::print_add;
 Foo foo(314159);
 f_add_display(foo, 1);</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_boost_bind">boost bind</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-c++" data-lang="c++">boost::function&lt;void (int)&gt; f2( boost::bind( &amp;myclass::fun2, this, _1 ) );</code></pre>
 </div>
 </div>
 </div>
