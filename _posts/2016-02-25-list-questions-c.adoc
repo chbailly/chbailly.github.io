@@ -3,6 +3,8 @@
 
 <<fin>>
 
+<<asciidoctor#,lien1>>
+
 link:C-questions.html[liste questions c++]
 
  map operator [] versus insert
