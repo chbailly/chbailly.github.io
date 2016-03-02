@@ -3,7 +3,9 @@
 === toc 
 :toc:
 
-[[debut]]
+anchor:debut
+
+<<asciidoctor#,lien1>>
 
 == links
 
