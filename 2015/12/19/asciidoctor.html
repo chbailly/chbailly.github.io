@@ -30,14 +30,14 @@
     <meta property="og:site_name" content="mon site" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="asciidoctor" />
-    <meta property="og:description" content="toc anchor:debut links link to external page https://url[text du lien] text du lien link to internal page link:name[text du lien] texte du lien set anchor anchor:nom_anchor[nom_affiché] Faire un :setanchors: ? call anchor..." />
+    <meta property="og:description" content="Table of Contents toc links blocs admonitions table toc // au debut :toc: macro toc::[] links link to external page https://url[text du lien] text du lien link to internal page link:name[text du lien] texte du lien set..." />
     <meta property="og:url" content="https://chbailly.github.io/2015/12/19/asciidoctor.html" />
     <meta property="article:published_time" content="2015-12-19T00:00:00.000Z" />
-    <meta property="article:modified_time" content="2016-03-02T12:07:30.848Z" />
+    <meta property="article:modified_time" content="2016-03-02T12:41:52.310Z" />
     
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="asciidoctor" />
-    <meta name="twitter:description" content="toc anchor:debut links link to external page https://url[text du lien] text du lien link to internal page link:name[text du lien] texte du lien set anchor anchor:nom_anchor[nom_affiché] Faire un :setanchors: ? call anchor..." />
+    <meta name="twitter:description" content="Table of Contents toc links blocs admonitions table toc // au debut :toc: macro toc::[] links link to external page https://url[text du lien] text du lien link to internal page link:name[text du lien] texte du lien set..." />
     <meta name="twitter:url" content="https://chbailly.github.io/2015/12/19/asciidoctor.html" />
     
     <script type="application/ld+json">
@@ -55,8 +55,8 @@
     "headline": "asciidoctor",
     "url": "https://chbailly.github.io/2015/12/19/asciidoctor.html",
     "datePublished": "2015-12-19T00:00:00.000Z",
-    "dateModified": "2016-03-02T12:07:30.848Z",
-    "description": "toc anchor:debut links link to external page https://url[text du lien] text du lien link to internal page link:name[text du lien] texte du lien set anchor anchor:nom_anchor[nom_affiché] Faire un :setanchors: ? call anchor..."
+    "dateModified": "2016-03-02T12:41:52.310Z",
+    "description": "Table of Contents toc links blocs admonitions table toc // au debut :toc: macro toc::[] links link to external page https://url[text du lien] text du lien link to internal page link:name[text du lien] texte du lien set..."
 }
     </script>
 
@@ -141,10 +141,31 @@
             <span class="post-meta label"><time datetime="2015-12-19">19 Dec 2015</time></span>
 
             <section class="post-content">
-                <div class="sect2">
-<h3 id="_toc">toc</h3>
-<div class="paragraph">
-<p>anchor:debut</p>
+                <div id="preamble">
+<div class="sectionbody">
+<div id="toc" class="toc">
+<div id="toctitle" class="title">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_toc">toc</a></li>
+<li><a href="#_links">links</a></li>
+<li><a href="#_blocs">blocs</a></li>
+<li><a href="#_admonitions">admonitions</a></li>
+<li><a href="#_table">table</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_toc">toc</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>// au debut
+:toc: macro
+
+toc::[]</code></pre>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
