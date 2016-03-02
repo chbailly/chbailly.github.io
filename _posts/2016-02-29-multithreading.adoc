@@ -16,33 +16,38 @@ for (int i=0; i < num_threads; ++i)
 
 * locks guard (RAII, inutile d'appeler lock/unlock)
 
-  for (int i = 0; i < 5; ++i)
-  {
-    wait(1);
-    boost::lock_guard<boost::mutex> lock{mutex};
-    std::cout << "Thread " << get_id() << ": " << i << std::endl;
-  }
+[source,c++]
+----
+for (int i = 0; i < 5; ++i)
+{
+  wait(1);
+  boost::lock_guard<boost::mutex> lock{mutex};
+  std::cout << "Thread " << get_id() << ": " << i << std::endl;
+}
 
 * shared_mutex (lock par shared_lock ou unique lock)
-
 ----
-  void write_acess()
-  {
-    boost::unique_lock<boost::mutex> lock{mutex};
-  }
+
+[source,c++]
+----
+void write_acess()
+{
+  boost::unique_lock<boost::mutex> lock{mutex};
+}
   
-  void read_accesst()
+void read_accesst()
+{
+  for (int i = 0; i < 3; ++i)
   {
-    for (int i = 0; i < 3; ++i)
-    {
     boost::shared_lock<boost::shared_mutex> lock{mutex};
     std::cout << random_numbers.back() << '\n';
-    }
   }
+}
 ----
 
 == conditions
 
+[source,c++]
 ----
 std::condition_variable cv;
 std::mutex cv_m; // This mutex is used for three purposes:
