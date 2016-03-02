@@ -54,6 +54,8 @@ void bar(void) {
 ----
 La variable peut être modifiée par un thread => on empêche les optimisations.
 
+== mutable 
+
 == lambda function
 
 std::function
