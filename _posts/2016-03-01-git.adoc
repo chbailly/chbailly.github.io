@@ -1,9 +1,12 @@
 = git
+:toc: macro
 
 Lien
 https://www.atlassian.com/git/tutorials/[git tutorial]
 
-:toc:
+
+
+toc::[]
 
 === Création repo central
 
