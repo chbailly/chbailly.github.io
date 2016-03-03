@@ -24,9 +24,10 @@ for (int i = 0; i < 5; ++i)
   boost::lock_guard<boost::mutex> lock{mutex};
   std::cout << "Thread " << get_id() << ": " << i << std::endl;
 }
+----
 
 * shared_mutex (lock par shared_lock ou unique lock)
-----
+
 
 [source,c++]
 ----
@@ -89,6 +90,7 @@ On fait un set sur une promise
 
 On peut récupérer le futur associée d'une promise
 
+[source,c++]
 ----
 void accumulate(boost::promise<int> &p)
 {
@@ -109,6 +111,8 @@ int main()
 
 
 * version simplifiée (avec async)
+
+[source,c++]
 ----
 int accumulate()
 {
