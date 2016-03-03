@@ -3,6 +3,18 @@
 
 toc::[]
 
+== dérivés
+=== americaine/europeene
+
+Americaine (*le plus fréquent*)::
+Peut s'exercer à tout moment
+
+Européenne::
+S'exerce à terme
+
+=== put, call, cap floor
+Les caps et les floors sont les pendants des put et call sur fixed income.
+
 == forward/future
 
 * forward
@@ -13,10 +25,12 @@ FRA::
 forward rate agreement
 
 
-* future = marché à terme
+* future (marché à terme)
+
+Exemple: future sur EURIBOR 3 mois.
 
 cotation:
-1 - taux ecompté
+100 - taux d'intérêt
 
 == greeks
 
