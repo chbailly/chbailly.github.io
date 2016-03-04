@@ -101,4 +101,3 @@ Faire ensuite un git merge de cette branche (on aura fait l'équivalent d'un svn
 git pull repo [branch]
 ----
 Fais le fetch + merge <=> svn update
-
