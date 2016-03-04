@@ -1,19 +1,9 @@
 = asciidoctor
-:toc: macro
 
-toc::[]
+=== toc 
+:toc:
 
-== toc 
-
-[source]
-----
-// au debut
-:toc: macro
-
-toc::[]
-----
-
-
+[[debut]]
 
 == links
 
@@ -22,31 +12,26 @@ toc::[]
 
 a|
 [literal]
-.link to external page
 https://url[text du lien]
 a|https://oddmuse.org[text du lien]
 
 a|
-.link to internal page
+lien interne
 [literal]
 link:name[text du lien]
-a|link:titre4[texte du lien]
+a|link:titre4[titre4]
 
 a|
-.set anchor
-....
-anchor:nom_anchor[nom_affiché]
-
-Faire un :setanchors: ?
-....
-|
+[literal]
+ [[anchor]]
 a|
-.call anchor
+[[encre]]
+
+a|
 [literal]
  <<anchor>>
 a|
-
-
+<<debut,revenir debut>>
 
 |====
 
