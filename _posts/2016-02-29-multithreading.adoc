@@ -128,3 +128,37 @@ int main()
   std::cout << f.get() << '\n';
 }
 ----
+
+== std::atomic
+
+std::atomic<T> va introduire 
+* soit un algo lock free sur petites structures (primitives)
+* soit des locks
+
+
+
+cf https://woboq.com/blog/introduction-to-lockfree-programming.html[lien-explicatif]
+
+. algo lock free
+[source,c++]
+----
+class Stack {
+    QAtomicPointer<Node> head;
+public:
+    Stack() : head(0) {}
+    void push(Node *n) {
+        do {
+            n->next = head;
+        } while(!head.testAndSetOrdered(n->next, n));
+    }
+    Node *pop() {
+        Node *n;
+        do {
+            n = head;
+            if (!n)
+                return 0;
+        } while(!head.testAndSetOrdered(n, n->next));
+        return n;
+    }
+};
+----
