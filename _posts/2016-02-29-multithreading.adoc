@@ -1,6 +1,8 @@
 = multithreading
 
 == threads, groups
+
+[source,c++]
 ----
 void change_count(){]
 
@@ -25,6 +27,7 @@ for (int i=0; i < num_threads; ++i)
 
 * shared_mutex (lock par shared_lock ou unique lock)
 
+[source,c++]
 ----
   void write_acess()
   {
@@ -84,6 +87,7 @@ On fait un set sur une promise
 
 On peut récupérer le futur associée d'une promise
 
+[source,c++]
 ----
 void accumulate(boost::promise<int> &p)
 {
@@ -104,6 +108,8 @@ int main()
 
 
 * version simplifiée (avec async)
+
+[source,c++]
 ----
 int accumulate()
 {
