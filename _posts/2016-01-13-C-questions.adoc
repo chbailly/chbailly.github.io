@@ -88,7 +88,7 @@ std::function<void(const Foo&, int)> f_add_display =      &Foo::print_add;
 boost::function<void (int)> f2( boost::bind( &myclass::fun2, this, _1 ) );
 ----
 
-==== par capture
+==== par capture (par bind ou capture)
 
 [source,c++]
 ----
