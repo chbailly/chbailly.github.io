@@ -67,6 +67,11 @@ encapsule n'importe quel type de fonction (membre, lambda, ...)
     std::function<void(const Foo&, int)> f_add_display =      &Foo::print_add;
     Foo foo(314159);
     f_add_display(foo, 1);
+    
+on peut capturer:
+	* [&]: toutes les variables par ref
+    * [=]: par copie
+    * [this]: on peut acceder aux données membres
 
 == boost bind
 
