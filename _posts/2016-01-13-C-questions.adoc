@@ -58,27 +58,46 @@ La variable peut être modifiée par un thread => on empêche les optimisations.
 
 Une donnée membre mutable peut être modifiée dans une méthode const. Ce sont en général des attributs techniques(optim), l'objet reste fonctionnellement const.
 
-== lambda function
+== function
 
-std::function
+=== lambda
 
-encapsule n'importe quel type de fonction (membre, lambda, ...)
-
-    std::function<void(const Foo&, int)> f_add_display =      &Foo::print_add;
-    Foo foo(314159);
-    f_add_display(foo, 1);
-    
 on peut capturer:
 	* [&]: toutes les variables par ref
     * [=]: par copie
     * [this]: on peut acceder aux données membres
+    
+    
+=== function    
+std::function
+encapsule n'importe quel type de fonction (membre, lambda, ...)
 
-== boost bind
+----
+std::function<void(const Foo&, int)> f_add_display =      &Foo::print_add;
+    Foo foo(314159);
+    f_add_display(foo, 1);
+----    
+
+
+=== delegate
+
+==== par boost::bind 
 
 [source,c++]
 ----
 boost::function<void (int)> f2( boost::bind( &myclass::fun2, this, _1 ) );
 ----
+
+==== par capture
+
+[source,c++]
+----
+MessageSizeStore size_store;
+processor.setHandlerFunc( 
+        [&] (const std::string& message) { size_store.checkMessage( message ); } 
+);
+----
+
 
 == type traits/policy traits
 
