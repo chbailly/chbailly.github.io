@@ -16,39 +16,33 @@ for (int i=0; i < num_threads; ++i)
 
 * locks guard (RAII, inutile d'appeler lock/unlock)
 
-[source,c++]
-----
-for (int i = 0; i < 5; ++i)
-{
-  wait(1);
-  boost::lock_guard<boost::mutex> lock{mutex};
-  std::cout << "Thread " << get_id() << ": " << i << std::endl;
-}
-----
+  for (int i = 0; i < 5; ++i)
+  {
+    wait(1);
+    boost::lock_guard<boost::mutex> lock{mutex};
+    std::cout << "Thread " << get_id() << ": " << i << std::endl;
+  }
 
 * shared_mutex (lock par shared_lock ou unique lock)
 
-
-[source,c++]
 ----
-void write_acess()
-{
-  boost::unique_lock<boost::mutex> lock{mutex};
-}
-  
-void read_accesst()
-{
-  for (int i = 0; i < 3; ++i)
+  void write_acess()
   {
+    boost::unique_lock<boost::mutex> lock{mutex};
+  }
+  
+  void read_accesst()
+  {
+    for (int i = 0; i < 3; ++i)
+    {
     boost::shared_lock<boost::shared_mutex> lock{mutex};
     std::cout << random_numbers.back() << '\n';
+    }
   }
-}
 ----
 
 == conditions
 
-[source,c++]
 ----
 std::condition_variable cv;
 std::mutex cv_m; // This mutex is used for three purposes:
@@ -90,7 +84,6 @@ On fait un set sur une promise
 
 On peut récupérer le futur associée d'une promise
 
-[source,c++]
 ----
 void accumulate(boost::promise<int> &p)
 {
@@ -111,8 +104,6 @@ int main()
 
 
 * version simplifiée (avec async)
-
-[source,c++]
 ----
 int accumulate()
 {
@@ -127,38 +118,4 @@ int main()
   boost::future<int> f = boost::async(accumulate);
   std::cout << f.get() << '\n';
 }
-----
-
-== std::atomic
-
-std::atomic<T> va introduire 
-* soit un algo lock free sur petites structures (primitives)
-* soit des locks
-
-
-
-cf https://woboq.com/blog/introduction-to-lockfree-programming.html[lien-explicatif]
-
-.algo lock free
-[source,c++]
-----
-class Stack {
-    QAtomicPointer<Node> head;
-public:
-    Stack() : head(0) {}
-    void push(Node *n) {
-        do {
-            n->next = head;
-        } while(!head.testAndSetOrdered(n->next, n));
-    }
-    Node *pop() {
-        Node *n;
-        do {
-            n = head;
-            if (!n)
-                return 0;
-        } while(!head.testAndSetOrdered(n, n->next));
-        return n;
-    }
-};
 ----
