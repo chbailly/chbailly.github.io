@@ -1,8 +1,6 @@
 = multithreading
 
 == threads, groups
-
-[source,c++]
 ----
 void change_count(){]
 
@@ -18,34 +16,39 @@ for (int i=0; i < num_threads; ++i)
 
 * locks guard (RAII, inutile d'appeler lock/unlock)
 
-  for (int i = 0; i < 5; ++i)
-  {
-    wait(1);
-    boost::lock_guard<boost::mutex> lock{mutex};
-    std::cout << "Thread " << get_id() << ": " << i << std::endl;
-  }
+[source,c++]
+----
+for (int i = 0; i < 5; ++i)
+{
+  wait(1);
+  boost::lock_guard<boost::mutex> lock{mutex};
+  std::cout << "Thread " << get_id() << ": " << i << std::endl;
+}
+----
 
 * shared_mutex (lock par shared_lock ou unique lock)
 
+
 [source,c++]
 ----
-  void write_acess()
-  {
-    boost::unique_lock<boost::mutex> lock{mutex};
-  }
+void write_acess()
+{
+  boost::unique_lock<boost::mutex> lock{mutex};
+}
   
-  void read_accesst()
+void read_accesst()
+{
+  for (int i = 0; i < 3; ++i)
   {
-    for (int i = 0; i < 3; ++i)
-    {
     boost::shared_lock<boost::shared_mutex> lock{mutex};
     std::cout << random_numbers.back() << '\n';
-    }
   }
+}
 ----
 
 == conditions
 
+[source,c++]
 ----
 std::condition_variable cv;
 std::mutex cv_m; // This mutex is used for three purposes:
@@ -125,3 +128,36 @@ int main()
   std::cout << f.get() << '\n';
 }
 ----
+
+== std::atomic
+
+std::atomic<T> va introduire 
+* soit un algo lock free sur petites structures (primitives)
+* soit des locks
+
+
+
+cf https://woboq.com/blog/introduction-to-lockfree-programming.html[lien-explicatif]
+
+.algo lock free
+[source,c++]
+----
+class Stack {
+    QAtomicPointer<Node> head;
+public:
+    Stack() : head(0) {}
+    void push(Node *n) {
+        do {
+            n->next = head;
+        } while(!head.testAndSetOrdered(n->next, n));
+    }
+    Node *pop() {
+        Node *n;
+        do {
+            n = head;
+            if (!n)
+                return 0;
+        } while(!head.testAndSetOrdered(n, n->next));
+        return n;
+    }
+};
