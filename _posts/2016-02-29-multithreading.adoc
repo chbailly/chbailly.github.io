@@ -139,7 +139,7 @@ std::atomic<T> va introduire
 
 cf https://woboq.com/blog/introduction-to-lockfree-programming.html[lien-explicatif]
 
-. algo lock free
+.algo lock free
 [source,c++]
 ----
 class Stack {
