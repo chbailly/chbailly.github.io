@@ -1,5 +1,7 @@
 = c#
-
+:toc: macro
+:hp-tags: c#
+toc::[]
 
 == types
 
@@ -7,9 +9,15 @@
 
 === string
 
+=== nullable (optional)
+
 === types anonymes
+
+== delegate (lambda)
 
 == events
 
 == propriétés
+
+== 
 
