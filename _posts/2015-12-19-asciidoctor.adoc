@@ -1,7 +1,16 @@
 = asciidoctor
+:toc: macro
 
 === toc 
-:toc:
+
+.toc
+....
+:toc: macro //au début
+
+toc:[] // a l'endroit d'insertion
+....
+
+toc::[]
 
 [[debut]]
 
