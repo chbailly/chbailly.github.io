@@ -17,7 +17,43 @@ toc::[]
 
 == events
 
+[source,c#]
+----
+// type delegate
+public delegate void ChangedEventHandler(object sender, EventArgs e);
+
+// donnee membre event
+public event ChangedEventHandler Changed;
+
+// ajout d'un listener, ListChanged est une methode par exemple
+List.Changed += new ChangedEventHandler(ListChanged);
+
+// trigger event -> comme un appel de fonction
+Changed(this, e);
+
+// detach
+ List.Changed -= new ChangedEventHandler(ListChanged);
+ 
+ 
+____
+
+----
+
 == propriétés
+
+[source,c#]
+----
+class TimePeriod
+{
+    private double seconds;
+
+    public double Hours
+    {
+        get { return seconds / 3600; }
+        set { seconds = value * 3600; }
+    }
+}
+----
 
 == 
 
