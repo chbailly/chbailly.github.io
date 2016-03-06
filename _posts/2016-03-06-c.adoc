@@ -15,6 +15,8 @@ toc::[]
 
 == delegate (lambda)
 
+* delegate 
+
 [source,c#]
 ----
 // declaration de type function
@@ -26,6 +28,24 @@ new Thread(
    	Console.WriteLine("ok");
    }
 ).Start();
+----
+
+* Func 
+
+*Func* encapsule une fonction/delegate/lambda expression
+[source,c#]
+----
+Func<int,int,int> = delegate(x,y) { return x+y; }
+----
+
+Pour une fonction qui retourne void, utiliser *Action*
+
+* lambda expression
+
+.Lambda expression
+[source,c#]
+----
+Func<int,int,int> = ((x,y) => x+y)
 ----
 
 == events
