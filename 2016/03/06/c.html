@@ -77,15 +77,15 @@
     <meta property="og:site_name" content="mon site" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="c#" />
-    <meta property="og:description" content="types array string nullable (optional) types anonymes delegate (lambda) // declaration de type function public delegate void TestDelegate(string message); //exemple de lambda new Thread(    delegate() {    	Console.WriteLine(&quot;ok&quot;);    } ).Start(); events // type delegate public..." />
+    <meta property="og:description" content="types array string nullable (optional) types anonymes delegate (lambda) delegate // declaration de type function public delegate void TestDelegate(string message); //exemple de lambda new Thread(    delegate() {    	Console.WriteLine(&quot;ok&quot;);    } ).Start(); Func Func encapsule un..." />
     <meta property="og:url" content="https://chbailly.github.io/2016/03/06/c.html" />
     <meta property="article:published_time" content="2016-03-05T23:00:00.000Z" />
-    <meta property="article:modified_time" content="2016-03-06T21:02:36.562Z" />
+    <meta property="article:modified_time" content="2016-03-06T21:33:12.015Z" />
     <meta property="article:tag" content="c#" />
     
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="c#" />
-    <meta name="twitter:description" content="types array string nullable (optional) types anonymes delegate (lambda) // declaration de type function public delegate void TestDelegate(string message); //exemple de lambda new Thread(    delegate() {    	Console.WriteLine(&quot;ok&quot;);    } ).Start(); events // type delegate public..." />
+    <meta name="twitter:description" content="types array string nullable (optional) types anonymes delegate (lambda) delegate // declaration de type function public delegate void TestDelegate(string message); //exemple de lambda new Thread(    delegate() {    	Console.WriteLine(&quot;ok&quot;);    } ).Start(); Func Func encapsule un..." />
     <meta name="twitter:url" content="https://chbailly.github.io/2016/03/06/c.html" />
     
     <script type="application/ld+json">
@@ -103,9 +103,9 @@
     "headline": "c#",
     "url": "https://chbailly.github.io/2016/03/06/c.html",
     "datePublished": "2016-03-05T23:00:00.000Z",
-    "dateModified": "2016-03-06T21:02:36.562Z",
+    "dateModified": "2016-03-06T21:33:12.015Z",
     "keywords": "c#",
-    "description": "types array string nullable (optional) types anonymes delegate (lambda) // declaration de type function public delegate void TestDelegate(string message); //exemple de lambda new Thread(    delegate() {    \tConsole.WriteLine(&quot;ok&quot;);    } ).Start(); events // type delegate public..."
+    "description": "types array string nullable (optional) types anonymes delegate (lambda) delegate // declaration de type function public delegate void TestDelegate(string message); //exemple de lambda new Thread(    delegate() {    \tConsole.WriteLine(&quot;ok&quot;);    } ).Start(); Func Func encapsule un..."
 }
     </script>
 
@@ -216,6 +216,13 @@
 <div class="sect1">
 <h2 id="_delegate_lambda">delegate (lambda)</h2>
 <div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>delegate</p>
+</li>
+</ul>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-c#" data-lang="c#">// declaration de type function
@@ -227,6 +234,37 @@ new Thread(
    	Console.WriteLine("ok");
    }
 ).Start();</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Func</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Func</strong> encapsule une fonction/delegate/lambda expression</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-c#" data-lang="c#">Func&lt;int,int,int&gt; = delegate(x,y) { return x+y; }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Pour une fonction qui retourne void, utiliser <strong>Action</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>lambda expression</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Lambda expression</div>
+<div class="content">
+<pre class="highlight"><code class="language-c#" data-lang="c#">Func&lt;int,int,int&gt; = ((x,y) =&gt; x+y)</code></pre>
 </div>
 </div>
 </div>
