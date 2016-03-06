@@ -15,6 +15,18 @@ toc::[]
 
 == delegate (lambda)
 
+[source,c#]
+----
+// declaration de type function
+public delegate void TestDelegate(string message); 
+
+new Thread(
+   delegate() {
+   	Console.WriteLine("ok");
+   }
+).Start();
+----
+
 == events
 
 [source,c#]
@@ -34,9 +46,6 @@ Changed(this, e);
 // detach
  List.Changed -= new ChangedEventHandler(ListChanged);
  
- 
-____
-
 ----
 
 == propriétés
