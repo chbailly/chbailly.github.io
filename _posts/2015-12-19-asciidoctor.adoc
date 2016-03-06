@@ -14,7 +14,7 @@ toc:[] // a l'endroit d'insertion
 
 
 
-anchor:debut
+[[debut]]
 
 == links
 
