@@ -1,6 +1,8 @@
 = asciidoctor
 :toc: macro
+:sectanchors: 
 
+toc::[]
 === toc 
 
 .toc
@@ -10,9 +12,9 @@
 toc:[] // a l'endroit d'insertion
 ....
 
-toc::[]
 
-[[debut]]
+
+anchor:debut
 
 == links
 
