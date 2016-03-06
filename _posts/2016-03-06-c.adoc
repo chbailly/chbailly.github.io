@@ -20,6 +20,7 @@ toc::[]
 // declaration de type function
 public delegate void TestDelegate(string message); 
 
+//exemple de lambda
 new Thread(
    delegate() {
    	Console.WriteLine("ok");
