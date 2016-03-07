@@ -346,11 +346,12 @@ var numQuery =
  {
        Console.Write("{0,1} ", num);
  }
- ----
+----
  
  ** Exécution immédiate
  On peut exécuter la requête et sauvegarder les résultats
- [source,c#]
+ 
+[source,c#]
 ----
 List<int> numQuery2 =
     (from num in numbers
