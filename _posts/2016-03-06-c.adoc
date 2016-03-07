@@ -1,11 +1,76 @@
 = c#
 :toc: macro
 :hp-tags: c#
+
 toc::[]
 
+== classes
+
+=== diufférences c++,c#
+
+* pas de section public, private dans les classes, chaque méthode est préfixée par public, private...
+* Héritage public seulement entre les classes
+
+=== abstract, virtual override
+
+Au niveau le pluys haut, on définit les méthodes soit abstraites (pas de def) soit virtual).
+
+Une méthode redéfinie est override
+
+[source,c#]
+----
+public virtual decimal CalculatePay()
+        {
+            return basepay;
+        }
+----
+
+[source,c#]
+----
+public override decimal CalculatePay()
+{
+    return basepay + salesbonus;
+}
+----
 == types
 
+=== differences c++/c#
+
+array::
+ [,] pour les array 2 dimensions, [][] pour les jagges array
+
 === array
+
+* simple
+
+.tableau simle avec initialisation
+[source,c#]
+----
+Shape[] shapes =
+{
+   new Square(5, "Square #1"),
+   new Circle(3, "Circle #1"),
+            new Rectangle( 4, 5, "Rectangle #1")
+};
+----
+
+* multidimensionnel
+
+[source,c#]
+----
+// Declare a two dimensional array
+int[,] multiDimensionalArray1 = new int[2, 3];
+----
+
+* jagged
+
+[source,c#]
+----
+int[][] jaggedArray = new int[6][];
+
+// Set the values of the first array 
+jaggedArray[0] = new int[4] { 1, 2, 3, 4 };
+----
 
 === string
 
