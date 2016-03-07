@@ -77,15 +77,15 @@
     <meta property="og:site_name" content="mon site" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="c#" />
-    <meta property="og:description" content="Table of Contents classes/méthodes différences c++,c# abstract, virtual override out,ref types differences c++/c# boxing/unboxing array collections(System.Collections.Generic) string nullable (optional) var types anonymes delegate (lambda) closures events propriétés classes/méth..." />
+    <meta property="og:description" content="Table of Contents classes/méthodes différences c++,c# abstract, virtual override out,ref types differences c++/c# boxing/unboxing array collections(System.Collections.Generic) string nullable (optional) var types anonymes delegate (lambda) closures events propriétés attributs de..." />
     <meta property="og:url" content="https://chbailly.github.io/2016/03/06/c.html" />
     <meta property="article:published_time" content="2016-03-05T23:00:00.000Z" />
-    <meta property="article:modified_time" content="2016-03-07T19:36:03.350Z" />
+    <meta property="article:modified_time" content="2016-03-07T20:22:08.075Z" />
     <meta property="article:tag" content="c#" />
     
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="c#" />
-    <meta name="twitter:description" content="Table of Contents classes/méthodes différences c++,c# abstract, virtual override out,ref types differences c++/c# boxing/unboxing array collections(System.Collections.Generic) string nullable (optional) var types anonymes delegate (lambda) closures events propriétés classes/méth..." />
+    <meta name="twitter:description" content="Table of Contents classes/méthodes différences c++,c# abstract, virtual override out,ref types differences c++/c# boxing/unboxing array collections(System.Collections.Generic) string nullable (optional) var types anonymes delegate (lambda) closures events propriétés attributs de..." />
     <meta name="twitter:url" content="https://chbailly.github.io/2016/03/06/c.html" />
     
     <script type="application/ld+json">
@@ -103,9 +103,9 @@
     "headline": "c#",
     "url": "https://chbailly.github.io/2016/03/06/c.html",
     "datePublished": "2016-03-05T23:00:00.000Z",
-    "dateModified": "2016-03-07T19:36:03.350Z",
+    "dateModified": "2016-03-07T20:22:08.075Z",
     "keywords": "c#",
-    "description": "Table of Contents classes/méthodes différences c++,c# abstract, virtual override out,ref types differences c++/c# boxing/unboxing array collections(System.Collections.Generic) string nullable (optional) var types anonymes delegate (lambda) closures events propriétés classes/méth..."
+    "description": "Table of Contents classes/méthodes différences c++,c# abstract, virtual override out,ref types differences c++/c# boxing/unboxing array collections(System.Collections.Generic) string nullable (optional) var types anonymes delegate (lambda) closures events propriétés attributs de..."
 }
     </script>
 
@@ -223,6 +223,12 @@
 </li>
 <li><a href="#_events">events</a></li>
 <li><a href="#_propri_t_s">propriétés</a></li>
+<li><a href="#_attributs">attributs</a>
+<ul class="sectlevel2">
+<li><a href="#_definir_attribut">definir attribut</a></li>
+<li><a href="#_appliquer_attributs">appliquer attributs</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -384,13 +390,25 @@ caster les élément.</p>
 <p>List&lt;T&gt; &#8658; c&#8217;est comme un array mais de taille variable</p>
 </li>
 <li>
+<p>LinkedList&lt;T&gt;</p>
+</li>
+<li>
 <p>Dictionary&lt;key,value&gt;</p>
+</li>
+<li>
+<p>SortedDictionar&lt;key,value&gt;</p>
 </li>
 <li>
 <p>Stack&lt;T&gt;</p>
 </li>
 <li>
 <p>Queue&lt;T&gt;</p>
+</li>
+<li>
+<p>HashSet</p>
+</li>
+<li>
+<p>SortedSet</p>
 </li>
 </ul>
 </div>
@@ -547,8 +565,58 @@ Changed(this, e);
 <pre>get()</pre>
 </div>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_attributs">attributs</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_definir_attribut">definir attribut</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>doit dériver de System.Attribute</p>
+</li>
+<li>
+<p>on doit définir un AttributeUsage (all, ou simplement pour les classes, méthodes)</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-c#" data-lang="c#">[AttributeUsage(AttributeTargets.All)]
+public class DeBugInfo : System.Attribute
+{
+   private int bugNo;
+   public string message;
+
+   public DeBugInfo(int bg)
+   {
+      this.bugNo = bg;
+   }
+
+  public string Message
+   {
+      get{return message;}
+
+      set {message = value;}
+   }
+}</code></pre>
+</div>
+</div>
 <div class="paragraph">
-<p>==</p>
+<p>Ici on a des atributs <strong>positionnels</strong> (paramètres obligatoires, doivent respecter ordre et des attributs <strong>nominatifs</strong> (optionnels)</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_appliquer_attributs">appliquer attributs</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-c#" data-lang="c#">[DeBugInfo(49, Message = "Unused variable")]
+class Rectangle {
+}</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
