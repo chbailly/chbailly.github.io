@@ -4,12 +4,13 @@
 
 toc::[]
 
-== classes
+== classes/méthodes
 
-=== diufférences c++,c#
+=== différences c++,c#
 
 * pas de section public, private dans les classes, chaque méthode est préfixée par public, private...
 * Héritage public seulement entre les classes
+* out, ref pour les paramètres
 
 === abstract, virtual override
 
@@ -32,12 +33,38 @@ public override decimal CalculatePay()
     return basepay + salesbonus;
 }
 ----
+
+=== out,ref
+
+Utilisé pour les paramètres. 
+Un paramètre out n'est pas initialisé.
+
+Pour ref, il doit être initialisé par l'appelant
+
 == types
 
 === differences c++/c#
 
-array::
- [,] pour les array 2 dimensions, [][] pour les jagges array
+* var <=> auto
+
+* array +
+[,] pour les array 2 dimensions, [][] pour les jagges array
+
+* les struct sont des *value type*, les classes des *reference type* +
+pas de new
+
+=== boxing/unboxing
+
+Boxing::
+Encapsuler un type primitif dans un objet. Ce type de value type devient un reference type +
+Exemple : pour mettre un int dans une liste d'objet.
+
+[source,c#]
+----
+double e = 2.7; // boxing
+object o = e; // box
+double ee = (double)o; // unboxing
+----
 
 === array
 
@@ -75,6 +102,17 @@ jaggedArray[0] = new int[4] { 1, 2, 3, 4 };
 === string
 
 === nullable (optional)
+
+
+=== var
+
+Déduction automatique de type
+[source,c#]
+----
+var query = from item in source
+            where item <= limit
+            select item;
+----
 
 === types anonymes
 
@@ -149,6 +187,11 @@ class TimePeriod
     }
 }
 ----
+
+On peut définir des propriétés dans une méthode abstraite, pour définir les getter/setter . Pour une propriété readonly mettre uniquement:
+
+  get()
+
 
 == 
 
