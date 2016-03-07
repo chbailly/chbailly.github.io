@@ -112,6 +112,25 @@ caster les élément.
 * HashSet
 * SortedSet 
 
+=== iterateurs
+
+* la class iterable
+
+** interface IEnumerable définit GetEnumerator. Une classe peut être enumerable.
+** L'interface IEnumerator definit MoveNext, Current, and Reset
+** on peut utiliser le *yield return*
+
+[source,c#]
+----
+public IEnumerator GetEnumerator()
+{
+    foreach (Animal theAnimal in animals)
+    {
+        yield return theAnimal.Name;
+    }
+}
+----
+
 === string
 
 === nullable (optional)
@@ -224,7 +243,20 @@ On peut définir des propriétés dans une méthode abstraite, pour définir les
 
   get()
 
+== indexeur
 
+[source,c#]
+----
+ public float this[int index] {
+     {
+        get
+        { return temps[index];}
+
+        set
+        { temps[index] = value;}
+    }
+----
+    
 == attributs
 
 === definir attribut
