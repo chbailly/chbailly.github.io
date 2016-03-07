@@ -135,6 +135,17 @@ public IEnumerator GetEnumerator()
 
 === nullable (optional)
 
+2 syntaxes possibles:
+[source,c#]
+Nullable<int> x = null
+  
+ou  
+[source,c#]
+int? x = null
+  
+Ne fonctionne que sur des types valeur, les types références (classe) sont déjà nullables.
+
+On peut appeler les méthodes *HasValue* ou *GetValueOrDefault*
 
 === var
 
