@@ -98,6 +98,15 @@ int[][] jaggedArray = new int[6][];
 // Set the values of the first array 
 jaggedArray[0] = new int[4] { 1, 2, 3, 4 };
 ----
+=== collections(System.Collections.Generic)
+
+* ArrayList : liste d'objets ... Il faut boxer les types primitis et il faut
+caster les élément. 
+
+* List<T> => c'est comme un array mais de taille variable
+* Dictionary<key,value>
+* Stack<T>
+* Queue<T>
 
 === string
 
@@ -150,6 +159,25 @@ Pour une fonction qui retourne void, utiliser *Action*
 ----
 Func<int,int,int> = ((x,y) => x+y)
 ----
+
+=== closures
+
+[source,c#]
+----
+public static Func<int,int> GetAFunc()
+{
+    var myVar = 1;
+    Func<int, int> inc = delegate(int var1)
+                            {
+                                myVar = myVar + 1;
+                                return var1 + myVar;
+                            };
+    return inc;
+}
+----
+
+On peut aussi avoir une *delegate = instance. methode_membre*
+Le bind avec le this est automatique
 
 == events
 
