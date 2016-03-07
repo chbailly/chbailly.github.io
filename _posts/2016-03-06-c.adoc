@@ -104,9 +104,13 @@ jaggedArray[0] = new int[4] { 1, 2, 3, 4 };
 caster les élément. 
 
 * List<T> => c'est comme un array mais de taille variable
+* LinkedList<T>
 * Dictionary<key,value>
+* SortedDictionar<key,value>
 * Stack<T>
 * Queue<T>
+* HashSet
+* SortedSet 
 
 === string
 
@@ -221,5 +225,42 @@ On peut définir des propriétés dans une méthode abstraite, pour définir les
   get()
 
 
-== 
+== attributs
+
+=== definir attribut
+
+* doit dériver de System.Attribute
+* on doit définir un AttributeUsage (all, ou simplement pour les classes, méthodes)
+
+[source,c#]
+----
+[AttributeUsage(AttributeTargets.All)]
+public class DeBugInfo : System.Attribute
+{
+   private int bugNo;
+   public string message;
+   
+   public DeBugInfo(int bg)
+   {
+      this.bugNo = bg;
+   }
+  
+  public string Message
+   {
+      get{return message;}
+      
+      set {message = value;}
+   }
+}
+----
+
+Ici on a des atributs *positionnels* (paramètres obligatoires, doivent respecter ordre et des attributs *nominatifs* (optionnels)
+
+=== appliquer attributs
+
+[source,c#]
+----
+[DeBugInfo(49, Message = "Unused variable")]
+class Rectangle {
+}
 
