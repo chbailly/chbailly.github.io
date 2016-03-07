@@ -158,6 +158,24 @@ var query = from item in source
 ----
 
 === types anonymes
+[source,c#]
+.definition
+----
+var v = new { Amount = 108, Message = "Hello" };
+----
+
+[source,c#]
+.Example d'utilisation
+----
+var productQuery = 
+    from prod in products
+    select new { prod.Color, prod.Price };
+
+foreach (var v in productQuery)
+{
+    Console.WriteLine("Color={0}, Price={1}", v.Color, v.Price);
+}
+----
 
 == delegate (lambda)
 
