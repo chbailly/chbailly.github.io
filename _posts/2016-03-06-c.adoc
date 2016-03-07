@@ -324,4 +324,38 @@ Ici on a des atributs *positionnels* (paramètres obligatoires, doivent respecte
 [DeBugInfo(49, Message = "Unused variable")]
 class Rectangle {
 }
+----
 
+== Linq
+
+* Exécution 
+
+** Exécution différée
+
+Ici la requête est exécutée dans le foreach
+
+[source,c#]
+----
+var numQuery =
+    from num in numbers
+    where (num % 2) == 0
+    select num;
+
+ // 3. Query execution.
+ foreach (int num in numQuery)
+ {
+       Console.Write("{0,1} ", num);
+ }
+ ----
+ 
+ ** Exécution immédiate
+ On peut exécuter la requête et sauvegarder les résultats
+ [source,c#]
+----
+List<int> numQuery2 =
+    (from num in numbers
+     where (num % 2) == 0
+     select num).ToList();
+----
+
+On peut aussi appeler la méthode *Count* sur la requête pour avoir le nombre de résultats
