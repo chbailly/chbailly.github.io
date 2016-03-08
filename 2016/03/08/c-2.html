@@ -77,14 +77,14 @@
     <meta property="og:site_name" content="mon site" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="c# - 2" />
-    <meta property="og:description" content="Memory management Finalize C&amp;#8217;est le destructeur qui implémente le finalize. On peut mettre le cleanup des ressources non managées. Lorsqu&amp;#8217;il y a un finalize, le garbage collector fait la destruction en 2 passes. Le finalize est..." />
+    <meta property="og:description" content="Table of Contents Memory management Links Finalize IDisposal Memory management Links explications détaillées template détaillé dispose On peut considérer que le programmeur doit appeler dispose, qu&amp;#8217;il ne doit pas l&amp;#8217;oublier. Dans ce cas, seul l&amp;#8217;..." />
     <meta property="og:url" content="https://chbailly.github.io/2016/03/08/c-2.html" />
     <meta property="article:published_time" content="2016-03-07T23:00:00.000Z" />
-    <meta property="article:modified_time" content="2016-03-08T11:52:11.258Z" />
+    <meta property="article:modified_time" content="2016-03-08T12:10:42.120Z" />
     
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="c# - 2" />
-    <meta name="twitter:description" content="Memory management Finalize C&amp;#8217;est le destructeur qui implémente le finalize. On peut mettre le cleanup des ressources non managées. Lorsqu&amp;#8217;il y a un finalize, le garbage collector fait la destruction en 2 passes. Le finalize est..." />
+    <meta name="twitter:description" content="Table of Contents Memory management Links Finalize IDisposal Memory management Links explications détaillées template détaillé dispose On peut considérer que le programmeur doit appeler dispose, qu&amp;#8217;il ne doit pas l&amp;#8217;oublier. Dans ce cas, seul l&amp;#8217;..." />
     <meta name="twitter:url" content="https://chbailly.github.io/2016/03/08/c-2.html" />
     
     <script type="application/ld+json">
@@ -102,8 +102,8 @@
     "headline": "c# - 2",
     "url": "https://chbailly.github.io/2016/03/08/c-2.html",
     "datePublished": "2016-03-07T23:00:00.000Z",
-    "dateModified": "2016-03-08T11:52:11.258Z",
-    "description": "Memory management Finalize C&amp;#8217;est le destructeur qui implémente le finalize. On peut mettre le cleanup des ressources non managées. Lorsqu&amp;#8217;il y a un finalize, le garbage collector fait la destruction en 2 passes. Le finalize est..."
+    "dateModified": "2016-03-08T12:10:42.120Z",
+    "description": "Table of Contents Memory management Links Finalize IDisposal Memory management Links explications détaillées template détaillé dispose On peut considérer que le programmeur doit appeler dispose, qu&amp;#8217;il ne doit pas l&amp;#8217;oublier. Dans ce cas, seul l&amp;#8217;..."
 }
     </script>
 
@@ -184,16 +184,75 @@
             </div>
           </aside>
           <div itemprop="articleBody" class="post-body">
-            <div class="sect1">
+            <div id="preamble">
+<div class="sectionbody">
+<div id="toc" class="toc">
+<div id="toctitle" class="title">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_memory_management">Memory management</a>
+<ul class="sectlevel2">
+<li><a href="#_links">Links</a></li>
+<li><a href="#_finalize">Finalize</a></li>
+<li><a href="#_idisposal">IDisposal</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_memory_management">Memory management</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_links">Links</h3>
+<div class="paragraph">
+<p><a href="http://stackoverflow.com/questions/3038571/whats-the-purpose-of-gc-suppressfinalizethis-in-dispose-method">explications détaillées</a><br>
+<a href="http://stackoverflow.com/questions/3038571/whats-the-purpose-of-gc-suppressfinalizethis-in-dispose-method">template détaillé dispose</a></p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+On peut considérer que le programmeur doit appeler dispose, qu&#8217;il ne doit pas l&#8217;oublier. Dans ce cas, seul l&#8217;implem de dispose est nécessaire, pas besoin de finaliser l&#8217;objet.
+</td>
+</tr>
+</table>
+</div>
+</div>
 <div class="sect2">
 <h3 id="_finalize">Finalize</h3>
 <div class="paragraph">
 <p>C&#8217;est le destructeur qui implémente le finalize. On peut mettre le cleanup des ressources non managées. Lorsqu&#8217;il y a un finalize, le garbage collector fait la destruction en 2 passes.</p>
 </div>
 <div class="paragraph">
-<p>Le finalize est forcément appelé. Il faut préférer le Dispose et l&#8217;appeler depuis finalize Et appeler</p>
+<p>Le finalize est forcément appelé.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+on privilegiera l&#8217;implémentation d&#8217;une méthode Dispose. Si on a un destructeur, on appelera le dispose. La présence d&#8217;un destructeur permet d'éviter les oublis de l&#8217;appel à Dispose.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">finalize method</div>
+<div class="content">
+<pre class="highlight"><code class="language-c#" data-lang="c#">~MyResource()
+{
+  // Avec le paramètre false, on indique de
+  // ne pas libérer les ressources managées dans le
+  // dispose. Ce sera fait par le GC
+  Dispose(false);
+}</code></pre>
+</div>
 </div>
 </div>
 <div class="sect2">
