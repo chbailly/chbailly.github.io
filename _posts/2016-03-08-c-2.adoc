@@ -1,3 +1,47 @@
 = c# - 2
 
-test
+== Memory management
+
+=== Finalize
+
+C'est le destructeur qui implémente le finalize. On peut mettre le cleanup des ressources non managées. Lorsqu'il y a un finalize, le garbage collector fait la destruction en 2 passes.
+
+Le finalize est forcément appelé. Il faut préférer le Dispose et l'appeler depuis finalize Et appeler 
+
+=== IDisposal
+
+* méthode dispose +
+On peut définir la méthode dispose qui pourra être appelée explicitement.. On peut l'appeler à partir du destructeur.
+
+[source,c#]
+----
+public void Dispose()
+{
+   Dispose(true);
+   // This object will be cleaned up by the Dispose method.
+   // Therefore, you should call GC.SupressFinalize to
+   // prevent finalization code for this object
+   // from executing a second time.
+   GC.SuppressFinalize(this);
+ }
+ 
+ protected void Dispose(Boolean from_dispose)
+{
+ //Free unmanaged resources
+ Win32.DestroyHandle(this.CursorFileBitmapIconServiceHandle);
+
+ //Free managed resources too, but only if I'm being called from Dispose
+ //(If I'm being called from Finalize then the objects might not exist
+ //anymore
+ if (from_dispose)  
+ {    
+      if (this.frameBufferImage != null)
+      {
+         this.frameBufferImage.Dispose();
+         this.frameBufferImage = null;
+      }
+   }
+}
+----
+
+* on peut aussi 
