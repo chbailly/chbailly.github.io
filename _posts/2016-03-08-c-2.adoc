@@ -1,14 +1,41 @@
 = c# - 2
+:toc: macro
 
+toc::[]
 == Memory management
+
+
+
+
+=== Links
+http://stackoverflow.com/questions/3038571/whats-the-purpose-of-gc-suppressfinalizethis-in-dispose-method[explications détaillées] +
+http://stackoverflow.com/questions/3038571/whats-the-purpose-of-gc-suppressfinalizethis-in-dispose-method[template détaillé dispose]
+
+TIP: On peut considérer que le programmeur doit appeler dispose, qu'il ne doit pas l'oublier. Dans ce cas, seul l'implem de dispose est nécessaire, pas besoin de finaliser l'objet.
 
 === Finalize
 
 C'est le destructeur qui implémente le finalize. On peut mettre le cleanup des ressources non managées. Lorsqu'il y a un finalize, le garbage collector fait la destruction en 2 passes.
 
-Le finalize est forcément appelé. Il faut préférer le Dispose et l'appeler depuis finalize Et appeler 
+Le finalize est forcément appelé. 
+
+IMPORTANT: on privilegiera l'implémentation d'une méthode Dispose. Si on a un destructeur, on appelera le dispose. La présence d'un destructeur permet d'éviter les oublis de l'appel à Dispose.
+
+.finalize method
+[source,c#]
+----
+~MyResource()      
+{
+  // Avec le paramètre false, on indique de 
+  // ne pas libérer les ressources managées dans le
+  // dispose. Ce sera fait par le GC
+  Dispose(false);
+}
+----
+
 
 === IDisposal
+
 
 * méthode dispose +
 On peut définir la méthode dispose qui pourra être appelée explicitement.. On peut l'appeler à partir du destructeur.
