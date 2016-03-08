@@ -71,4 +71,110 @@ public void Dispose()
 }
 ----
 
-* on peut aussi 
+== Appel du code C++
+
+=== pin d'un pointeur
+
+UN pointeur managé peut bouger à tout moment. UI faut le fixer, par le mot *fixed= en C# ou *pin_ptr* en C#.
+
+[source,c++]
+----
+Point pt = new Point();
+
+// Using fixed allows the address of pt members to be taken,
+// and "pins" pt so that it is not relocated.
+
+fixed (int* p = &pt.x)
+{
+   *p = 1;
+}       
+----
+=== Mélange C++ managé/Non managé
+
+En c++ managé, les objets sont alloués via les pointeurs managés (caractère ^) et les pointeurs/références unsafe. Les pointeurs managés (handle) peuvent bouger, il faut les figer pour avoir un pointeur.
+
+
+=== Marshal explicite
+
+* Le code managé est préfixé de #pragma managed
+* Le code non managé est préfixé de #pragma unmanaged
+* Les conversions se font avec le module System::Runtime::InteropServices pour le Marshal 
+* Il ne faut pas oublier de libérer la mémoire utilisé pour le marshal (cf exemple).
+
+[source,c#]
+----
+// MarshalANSI1.cpp
+// compile with: /clr
+#include <iostream>
+#include <stdio.h>
+
+using namespace std;
+using namespace System;
+using namespace System::Runtime::InteropServices;
+
+#pragma unmanaged
+
+void NativeTakesAString(const char* p) {
+   printf_s("(native) received '%s'\n", p);
+}
+
+#pragma managed
+
+int main() {
+   String^ s = gcnew String("sample string");
+   IntPtr ip = Marshal::StringToHGlobalAnsi(s);
+   const char* str = static_cast<const char*>(ip.ToPointer());
+
+   Console::WriteLine("(managed) passing string...");
+   NativeTakesAString( str );
+
+   Marshal::FreeHGlobal( ip );
+}
+----
+
+Link: *https://msdn.microsoft.com/fr-fr/library/22e4dash.aspx[msdn- marshal]*
+
+=== PInvoke (marshalling automatique)
+
+* Link: *https://msdn.microsoft.com/frfr/library/aa288468%28v=vs.71%29.aspx[msdn-pinvoke]*
+
+* on utilise l'attribut DllImport
+* On utilise les attributs MarshalAs ou on précise le type C++ correspondant
+
+[source,c#]
+----
+// Marshal.cs
+using System;
+using System.Runtime.InteropServices;
+
+class PlatformInvokeTest
+{
+    [DllImport("msvcrt.dll")]
+    public static extern int puts(
+        [MarshalAs(UnmanagedType.LPStr)]
+        string m);
+    [DllImport("msvcrt.dll")]
+    internal static extern int _flushall();
+
+
+    public static void Main() 
+    {
+        puts("Hello World!");
+        _flushall();
+    }
+}
+----
+
+ On peut définir comment une structure est marshallée
+
+[source,c#]
+----
+ [StructLayout(LayoutKind.Sequential)]
+public class LOGFONT 
+{ 
+    public const int LF_FACESIZE = 32;
+    public byte lfPitchAndFamily;
+    [MarshalAs(UnmanagedType.ByValTStr, SizeConst=LF_FACESIZE)]
+    public string lfFaceName; 
+}
+----
