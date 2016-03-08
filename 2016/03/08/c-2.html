@@ -77,14 +77,14 @@
     <meta property="og:site_name" content="mon site" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="c# - 2" />
-    <meta property="og:description" content="Table of Contents Memory management Links Finalize IDisposal Memory management Links explications détaillées template détaillé dispose On peut considérer que le programmeur doit appeler dispose, qu&amp;#8217;il ne doit pas l&amp;#8217;oublier. Dans ce cas, seul l&amp;#8217;..." />
+    <meta property="og:description" content="Table of Contents Memory management Links Finalize IDisposal Appel du code C++ pin d&amp;#8217;un pointeur Mélange C++ managé/Non managé Marshal explicite PInvoke (marshalling automatique) Memory management Links explications détaillées template détaillé dispose On peut considérer q..." />
     <meta property="og:url" content="https://chbailly.github.io/2016/03/08/c-2.html" />
     <meta property="article:published_time" content="2016-03-07T23:00:00.000Z" />
-    <meta property="article:modified_time" content="2016-03-08T12:10:42.120Z" />
+    <meta property="article:modified_time" content="2016-03-08T22:31:14.524Z" />
     
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="c# - 2" />
-    <meta name="twitter:description" content="Table of Contents Memory management Links Finalize IDisposal Memory management Links explications détaillées template détaillé dispose On peut considérer que le programmeur doit appeler dispose, qu&amp;#8217;il ne doit pas l&amp;#8217;oublier. Dans ce cas, seul l&amp;#8217;..." />
+    <meta name="twitter:description" content="Table of Contents Memory management Links Finalize IDisposal Appel du code C++ pin d&amp;#8217;un pointeur Mélange C++ managé/Non managé Marshal explicite PInvoke (marshalling automatique) Memory management Links explications détaillées template détaillé dispose On peut considérer q..." />
     <meta name="twitter:url" content="https://chbailly.github.io/2016/03/08/c-2.html" />
     
     <script type="application/ld+json">
@@ -102,8 +102,8 @@
     "headline": "c# - 2",
     "url": "https://chbailly.github.io/2016/03/08/c-2.html",
     "datePublished": "2016-03-07T23:00:00.000Z",
-    "dateModified": "2016-03-08T12:10:42.120Z",
-    "description": "Table of Contents Memory management Links Finalize IDisposal Memory management Links explications détaillées template détaillé dispose On peut considérer que le programmeur doit appeler dispose, qu&amp;#8217;il ne doit pas l&amp;#8217;oublier. Dans ce cas, seul l&amp;#8217;..."
+    "dateModified": "2016-03-08T22:31:14.524Z",
+    "description": "Table of Contents Memory management Links Finalize IDisposal Appel du code C++ pin d&amp;#8217;un pointeur Mélange C++ managé/Non managé Marshal explicite PInvoke (marshalling automatique) Memory management Links explications détaillées template détaillé dispose On peut considérer q..."
 }
     </script>
 
@@ -194,6 +194,14 @@
 <li><a href="#_links">Links</a></li>
 <li><a href="#_finalize">Finalize</a></li>
 <li><a href="#_idisposal">IDisposal</a></li>
+</ul>
+</li>
+<li><a href="#_appel_du_code_c">Appel du code C++</a>
+<ul class="sectlevel2">
+<li><a href="#_pin_d_un_pointeur">pin d&#8217;un pointeur</a></li>
+<li><a href="#_m_lange_c_manag_non_manag">Mélange C++ managé/Non managé</a></li>
+<li><a href="#_marshal_explicite">Marshal explicite</a></li>
+<li><a href="#_pinvoke_marshalling_automatique">PInvoke (marshalling automatique)</a></li>
 </ul>
 </li>
 </ul>
@@ -296,12 +304,145 @@ On peut définir la méthode dispose qui pourra être appelée explicitement.. O
 }</code></pre>
 </div>
 </div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_appel_du_code_c">Appel du code C++</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_pin_d_un_pointeur">pin d&#8217;un pointeur</h3>
+<div class="paragraph">
+<p>UN pointeur managé peut bouger à tout moment. UI faut le fixer, par le mot <strong>fixed= en C# ou *pin_ptr</strong> en C#.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-c++" data-lang="c++">Point pt = new Point();
+
+// Using fixed allows the address of pt members to be taken,
+// and "pins" pt so that it is not relocated.
+
+fixed (int* p = &amp;pt.x)
+{
+   *p = 1;
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_m_lange_c_manag_non_manag">Mélange C++ managé/Non managé</h3>
+<div class="paragraph">
+<p>En c++ managé, les objets sont alloués via les pointeurs managés (caractère ^) et les pointeurs/références unsafe. Les pointeurs managés (handle) peuvent bouger, il faut les figer pour avoir un pointeur.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_marshal_explicite">Marshal explicite</h3>
 <div class="ulist">
 <ul>
 <li>
-<p>on peut aussi</p>
+<p>Le code managé est préfixé de #pragma managed</p>
+</li>
+<li>
+<p>Le code non managé est préfixé de #pragma unmanaged</p>
+</li>
+<li>
+<p>Les conversions se font avec le module System::Runtime::InteropServices pour le Marshal</p>
+</li>
+<li>
+<p>Il ne faut pas oublier de libérer la mémoire utilisé pour le marshal (cf exemple).</p>
 </li>
 </ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-c#" data-lang="c#">// MarshalANSI1.cpp
+// compile with: /clr
+#include &lt;iostream&gt;
+#include &lt;stdio.h&gt;
+
+using namespace std;
+using namespace System;
+using namespace System::Runtime::InteropServices;
+
+#pragma unmanaged
+
+void NativeTakesAString(const char* p) {
+   printf_s("(native) received '%s'\n", p);
+}
+
+#pragma managed
+
+int main() {
+   String^ s = gcnew String("sample string");
+   IntPtr ip = Marshal::StringToHGlobalAnsi(s);
+   const char* str = static_cast&lt;const char*&gt;(ip.ToPointer());
+
+   Console::WriteLine("(managed) passing string...");
+   NativeTakesAString( str );
+
+   Marshal::FreeHGlobal( ip );
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Link: <strong><a href="https://msdn.microsoft.com/fr-fr/library/22e4dash.aspx">msdn- marshal</a></strong></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_pinvoke_marshalling_automatique">PInvoke (marshalling automatique)</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Link: <strong><a href="https://msdn.microsoft.com/frfr/library/aa288468%28v=vs.71%29.aspx">msdn-pinvoke</a></strong></p>
+</li>
+<li>
+<p>on utilise l&#8217;attribut DllImport</p>
+</li>
+<li>
+<p>On utilise les attributs MarshalAs ou on précise le type C++ correspondant</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-c#" data-lang="c#">// Marshal.cs
+using System;
+using System.Runtime.InteropServices;
+
+class PlatformInvokeTest
+{
+    [DllImport("msvcrt.dll")]
+    public static extern int puts(
+        [MarshalAs(UnmanagedType.LPStr)]
+        string m);
+    [DllImport("msvcrt.dll")]
+    internal static extern int _flushall();
+
+
+    public static void Main()
+    {
+        puts("Hello World!");
+        _flushall();
+    }
+}</code></pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>On peut définir comment une structure est marshallée</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-c#" data-lang="c#"> [StructLayout(LayoutKind.Sequential)]
+public class LOGFONT
+{
+    public const int LF_FACESIZE = 32;
+    public byte lfPitchAndFamily;
+    [MarshalAs(UnmanagedType.ByValTStr, SizeConst=LF_FACESIZE)]
+    public string lfFaceName;
+}</code></pre>
+</div>
 </div>
 </div>
 </div>
