@@ -139,7 +139,8 @@ Link: *https://msdn.microsoft.com/fr-fr/library/22e4dash.aspx[msdn- marshal]*
 * Link: *https://msdn.microsoft.com/frfr/library/aa288468%28v=vs.71%29.aspx[msdn-pinvoke]*
 
 * on utilise l'attribut DllImport
-* On utilise les attributs MarshalAs ou on précise le type C++ correspondant
+* On utilise les attributs MarshalAs où on précise le type C++ correspondant
+* Si on ne précise rien, il y a un marshalling par défaut
 
 [source,c#]
 ----
