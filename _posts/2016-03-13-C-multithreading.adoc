@@ -1,0 +1,3 @@
+= C# multithreading
+
+voir http://www.codeproject.com/Articles/189374/The-Basics-of-Task-Parallelism-via-C[Code project link]
