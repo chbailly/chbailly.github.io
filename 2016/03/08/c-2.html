@@ -77,14 +77,14 @@
     <meta property="og:site_name" content="mon site" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="c# - 2" />
-    <meta property="og:description" content="Table of Contents Memory management Links Finalize IDisposal Appel du code C++ pin d&amp;#8217;un pointeur Mélange C++ managé/Non managé Marshal explicite PInvoke (marshalling automatique) Extension methods Memory management Links explications détaillées template détaillé dispose On..." />
+    <meta property="og:description" content="Table of Contents Memory management Links Finalize IDisposal Appel du code C++ pin d&amp;#8217;un pointeur Mélange C++ managé/Non managé Marshal explicite PInvoke (marshalling automatique) Extension methods Linq via methode d&amp;#8217;extension Syntaxe simplifiée (Linq) Memory manageme..." />
     <meta property="og:url" content="https://chbailly.github.io/2016/03/08/c-2.html" />
     <meta property="article:published_time" content="2016-03-07T23:00:00.000Z" />
-    <meta property="article:modified_time" content="2016-03-14T13:50:00.822Z" />
+    <meta property="article:modified_time" content="2016-03-14T14:09:02.365Z" />
     
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="c# - 2" />
-    <meta name="twitter:description" content="Table of Contents Memory management Links Finalize IDisposal Appel du code C++ pin d&amp;#8217;un pointeur Mélange C++ managé/Non managé Marshal explicite PInvoke (marshalling automatique) Extension methods Memory management Links explications détaillées template détaillé dispose On..." />
+    <meta name="twitter:description" content="Table of Contents Memory management Links Finalize IDisposal Appel du code C++ pin d&amp;#8217;un pointeur Mélange C++ managé/Non managé Marshal explicite PInvoke (marshalling automatique) Extension methods Linq via methode d&amp;#8217;extension Syntaxe simplifiée (Linq) Memory manageme..." />
     <meta name="twitter:url" content="https://chbailly.github.io/2016/03/08/c-2.html" />
     
     <script type="application/ld+json">
@@ -102,8 +102,8 @@
     "headline": "c# - 2",
     "url": "https://chbailly.github.io/2016/03/08/c-2.html",
     "datePublished": "2016-03-07T23:00:00.000Z",
-    "dateModified": "2016-03-14T13:50:00.822Z",
-    "description": "Table of Contents Memory management Links Finalize IDisposal Appel du code C++ pin d&amp;#8217;un pointeur Mélange C++ managé/Non managé Marshal explicite PInvoke (marshalling automatique) Extension methods Memory management Links explications détaillées template détaillé dispose On..."
+    "dateModified": "2016-03-14T14:09:02.365Z",
+    "description": "Table of Contents Memory management Links Finalize IDisposal Appel du code C++ pin d&amp;#8217;un pointeur Mélange C++ managé/Non managé Marshal explicite PInvoke (marshalling automatique) Extension methods Linq via methode d&amp;#8217;extension Syntaxe simplifiée (Linq) Memory manageme..."
 }
     </script>
 
@@ -205,6 +205,12 @@
 </ul>
 </li>
 <li><a href="#_extension_methods">Extension methods</a></li>
+<li><a href="#_linq">Linq</a>
+<ul class="sectlevel2">
+<li><a href="#_via_methode_d_extension">via methode d&#8217;extension</a></li>
+<li><a href="#_syntaxe_simplifi_e_linq">Syntaxe simplifiée (Linq)</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -481,6 +487,54 @@ public class LOGFONT
         }
     }
 }</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_linq">Linq</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_via_methode_d_extension">via methode d&#8217;extension</h3>
+<div class="paragraph">
+<p>Linq se base sur des méthodes d&#8217;extension. Par exemple, on définit la méthode where sur <strong>tous les IEnumerable&lt;T&gt;</strong></p>
+</div>
+<div class="listingblock">
+<div class="title">Extension with Where method to IEnumerable&lt;T&gt;</div>
+<div class="content">
+<pre class="highlight"><code class="language-c#" data-lang="c#">public static IEnumerable&lt;T&gt; Where&lt;T&gt; (this IEnumerable&lt;T&gt; source, Func&lt;T,bool&gt; predicate)
+{
+  foreach (T item in source)
+  {
+    if (predicate(iem)) {
+       yield return item;
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Les filtres (.OrderBy,&#8230;&#8203;) peuvent être enchaînés puisqu&#8217;ils retournent tous des IEnumerable&lt;T&gt;</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_syntaxe_simplifi_e_linq">Syntaxe simplifiée (Linq)</h3>
+<div class="paragraph">
+<p>Proche du sql.</p>
+</div>
+<div class="listingblock">
+<div class="title">Linq sur plusieurs sources</div>
+<div class="content">
+<pre class="highlight"><code class="language-c#" data-lang="c#">var query = from ms in MailServers
+            from s in ms.Sender
+            Where s.Name == "noreply"
+            select ms;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre></pre>
+</div>
 </div>
 </div>
 </div>
