@@ -80,7 +80,7 @@
     <meta property="og:description" content="Table of Contents Memory management Links Finalize IDisposal Appel du code C++ pin d&amp;#8217;un pointeur Mélange C++ managé/Non managé Marshal explicite PInvoke (marshalling automatique) Extension methods Memory management Links explications détaillées template détaillé dispose On..." />
     <meta property="og:url" content="https://chbailly.github.io/2016/03/08/c-2.html" />
     <meta property="article:published_time" content="2016-03-07T23:00:00.000Z" />
-    <meta property="article:modified_time" content="2016-03-14T13:48:10.911Z" />
+    <meta property="article:modified_time" content="2016-03-14T13:50:00.822Z" />
     
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="c# - 2" />
@@ -102,7 +102,7 @@
     "headline": "c# - 2",
     "url": "https://chbailly.github.io/2016/03/08/c-2.html",
     "datePublished": "2016-03-07T23:00:00.000Z",
-    "dateModified": "2016-03-14T13:48:10.911Z",
+    "dateModified": "2016-03-14T13:50:00.822Z",
     "description": "Table of Contents Memory management Links Finalize IDisposal Appel du code C++ pin d&amp;#8217;un pointeur Mélange C++ managé/Non managé Marshal explicite PInvoke (marshalling automatique) Extension methods Memory management Links explications détaillées template détaillé dispose On..."
 }
     </script>
@@ -455,9 +455,17 @@ public class LOGFONT
 <h2 id="_extension_methods">Extension methods</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Ici, on ajoute une méthode à String. Une méthode existante (concrête) ne peut être étendu, l&#8217;extension ne vient qu&#8217;en 2sd priorité.+
-Ce sont des classes <strong>static</strong> avec mot clef this.<br>
-Le using du namespace d&#8217;extension active ces extensions</p>
+<p>Ici, on ajoute une méthode à String. Une méthode existante (concrête) ne peut être étendu, l&#8217;extension ne vient qu&#8217;en 2sd priorité.+</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Ce sont des classes <strong>static</strong> avec mot clef <strong>this</strong>.<br></p>
+</li>
+<li>
+<p>Le using du namespace d&#8217;extension <strong>active ces extensions</strong> .</p>
+</li>
+</ul>
 </div>
 <div class="listingblock">
 <div class="title">add method to string class</div>
