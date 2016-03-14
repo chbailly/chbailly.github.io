@@ -1,3 +1,170 @@
 = C# multithreading
+:toc: macro
 
+toc::[]
+
+== links
 voir http://www.codeproject.com/Articles/189374/The-Basics-of-Task-Parallelism-via-C[Code project link]
+
+== simple task
+
+[source,c#]
+----
+class myprogram {
+   static int g() 
+   {
+   return 4;
+   }
+   
+   static void Main(string[] args)
+   {
+     Func<int> myf = new Func<int>(g);
+     Task<int> t = new Task<int>(myf);
+     t.Start();
+     t.Wait();
+    }
+}
+----
+
+== Continuation
+
+[source,c#]
+----
+using System;
+using System.Threading.Tasks;
+public class Program {
+    private static Int32 Sum(Int32 n)
+    {
+        Int32 sum = 0;
+        for (; n > 0; n--)
+        checked { sum += n; } 
+        return sum;
+    }
+    public static void Main() {
+        // Create Task, defer starting it, continue with another task
+        Task<int32> t = new Task<int32>(n => Sum((Int32)n), 1000);
+        t.Start();
+        // notice the use of the Result property
+        Task cwt = t.ContinueWith(task => Console.WriteLine(
+                        "The sum is: " + task.Result));
+        cwt.Wait();  // For the testing only
+    }
+}
+----
+
+== Récupération du résultat (avec exception éventuelle)
+
+[source,c#]
+----
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+public class Program {
+
+    private static Int32 Sum(CancellationToken ct, Int32 n) {
+        Int32 sum = 0;
+        for (; n > 0; n--) {
+            ct.ThrowIfCancellationRequested();
+
+            //Thread.Sleep(0);   // Simulate taking a long time
+            checked { sum += n; }
+        }
+        return sum;
+    }
+
+    public static void Main() {
+        CancellationTokenSource cts = new CancellationTokenSource();
+        Task<int32> t = new Task<int32>(() => Sum(cts.Token, 1000), cts.Token);
+        t.Start();
+        cts.Cancel();
+
+        try {
+            // If the task got canceled, Result will throw an AggregateException
+            Console.WriteLine("The sum is: " + t.Result);   // An Int32 value
+        }
+        catch (AggregateException ae) {
+            ae.Handle(e => e is OperationCanceledException);
+            Console.WriteLine("Sum was canceled");
+        }
+    }
+}
+----
+
+== parent/child relationship
+
+[source,c#]
+----
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+public class Program {
+    private static Int32 Sum(Int32 n)
+    {
+        Int32 sum = 0;
+        for (; n > 0; n--)
+        checked { sum += n; } 
+        return sum;
+    }
+
+    public static void Main() {
+
+        Task<int32[]> parent = new Task<int32[]>(() => {
+            var results = new Int32[3];   // Create an array for the results
+
+            // This tasks creates and starts 3 child tasks
+            new Task(() => results[0] = Sum(100), 
+                TaskCreationOptions.AttachedToParent).Start();
+            new Task(() => results[1] = Sum(200), 
+                TaskCreationOptions.AttachedToParent).Start();
+            new Task(() => results[2] = Sum(300), 
+                TaskCreationOptions.AttachedToParent).Start();
+
+            // Returns a reference to the array
+            // (even though the elements may not be initialized yet)
+            return results;
+        });
+
+        // When the parent and its children have
+        // run to completion, display the results
+        var cwt = parent.ContinueWith(parentTask => 
+                            Array.ForEach(parentTask.Result, Console.WriteLine));
+
+        // Start the parent Task so it can start its children
+        parent.Start();
+
+        cwt.Wait(); // For testing purposes
+    }
+----
+
+
+
+== Asynchronus programmation (aucun thread)
+
+=== async/await
+
+[source,c#]
+----
+async Task<int> AccessTheWebAsync()
+{ 
+    // You need to add a reference to System.Net.Http to declare client.
+    HttpClient client = new HttpClient();
+
+    // GetStringAsync returns a Task<string>. That means that when you await the
+    // task you'll get a string (urlContents).
+    Task<string> getStringTask = client.GetStringAsync("http://msdn.microsoft.com");
+
+    // You can do work here that doesn't rely on the string from GetStringAsync.
+    DoIndependentWork();
+
+    // The await operator suspends AccessTheWebAsync.
+    //  - AccessTheWebAsync can't continue until getStringTask is complete.
+    //  - Meanwhile, control returns to the caller of AccessTheWebAsync.
+    //  - Control resumes here when getStringTask is complete. 
+    //  - The await operator then retrieves the string result from getStringTask.
+    string urlContents = await getStringTask;
+
+    // The return statement specifies an integer result.
+    // Any methods that are awaiting AccessTheWebAsync retrieve the length value.
+    return urlContents.Length;
+}
+----
