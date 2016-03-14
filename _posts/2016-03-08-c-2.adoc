@@ -202,3 +202,39 @@ namespace ExtensionMethods
     }   
 }
 ----
+
+== Linq
+
+=== via methode d'extension
+
+Linq se base sur des méthodes d'extension. Par exemple, on définit la méthode where sur *tous les IEnumerable<T>*
+
+[source,c#]
+.Extension with Where method to IEnumerable<T>
+----
+public static IEnumerable<T> Where<T> (this IEnumerable<T> source, Func<T,bool> predicate)
+{
+  foreach (T item in source)
+  {
+    if (predicate(iem)) {
+       yield return item;
+    }
+  }
+}
+----
+
+Les filtres (.OrderBy,...) peuvent être enchaînés puisqu'ils retournent tous des IEnumerable<T>
+
+=== Syntaxe simplifiée (Linq)
+
+Proche du sql. 
+
+[source,c#]
+.Linq sur plusieurs sources
+----
+var query = from ms in MailServers
+            from s in ms.Sender
+            Where s.Name == "noreply"
+            select ms;
+----
+----
