@@ -186,7 +186,7 @@ Ici, on ajoute une méthode à String. Une méthode existante (concrête) ne peu
 
 [source,c#]
 .add method to string class
----
+----
 namespace ExtensionMethods
 {
     public static class MyExtensions
