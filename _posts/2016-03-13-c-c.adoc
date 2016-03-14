@@ -13,4 +13,5 @@ BOOST_FOREACH( char ch, hello )
 |foreach (char c in s1) => sur type enumerable)
 
 | auto | var
+|std::function<int(int)>| Func<int,int>
 |=======================
