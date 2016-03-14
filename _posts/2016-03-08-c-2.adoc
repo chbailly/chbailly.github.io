@@ -179,3 +179,23 @@ public class LOGFONT
     public string lfFaceName; 
 }
 ----
+
+== Extension methods
+
+Ici, on ajoute une méthode à String. Une méthode existante (concrête) ne peut être étendu, l'extension ne vient qu'en 2sd priorité.
+
+[source,c#]
+.add method to string class
+---
+namespace ExtensionMethods
+{
+    public static class MyExtensions
+    {
+        public static int WordCount(this String str)
+        {
+            return str.Split(new char[] { ' ', '.', '?' }, 
+                             StringSplitOptions.RemoveEmptyEntries).Length;
+        }
+    }   
+}
+----
