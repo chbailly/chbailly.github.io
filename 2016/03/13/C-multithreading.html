@@ -77,14 +77,14 @@
     <meta property="og:site_name" content="mon site" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="C# multithreading" />
-    <meta property="og:description" content="voir Code project link..." />
+    <meta property="og:description" content="Table of Contents links simple task Continuation Récupération du résultat (avec exception éventuelle) parent/child relationship Asynchronus programmation (aucun thread) async/await links voir Code project link simple task class myprogram {    static int g()    {    return 4;..." />
     <meta property="og:url" content="https://chbailly.github.io/2016/03/13/C-multithreading.html" />
     <meta property="article:published_time" content="2016-03-12T23:00:00.000Z" />
-    <meta property="article:modified_time" content="2016-03-13T22:53:14.924Z" />
+    <meta property="article:modified_time" content="2016-03-14T09:41:02.379Z" />
     
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="C# multithreading" />
-    <meta name="twitter:description" content="voir Code project link..." />
+    <meta name="twitter:description" content="Table of Contents links simple task Continuation Récupération du résultat (avec exception éventuelle) parent/child relationship Asynchronus programmation (aucun thread) async/await links voir Code project link simple task class myprogram {    static int g()    {    return 4;..." />
     <meta name="twitter:url" content="https://chbailly.github.io/2016/03/13/C-multithreading.html" />
     
     <script type="application/ld+json">
@@ -102,8 +102,8 @@
     "headline": "C# multithreading",
     "url": "https://chbailly.github.io/2016/03/13/C-multithreading.html",
     "datePublished": "2016-03-12T23:00:00.000Z",
-    "dateModified": "2016-03-13T22:53:14.924Z",
-    "description": "voir Code project link..."
+    "dateModified": "2016-03-14T09:41:02.379Z",
+    "description": "Table of Contents links simple task Continuation Récupération du résultat (avec exception éventuelle) parent/child relationship Asynchronus programmation (aucun thread) async/await links voir Code project link simple task class myprogram {    static int g()    {    return 4;..."
 }
     </script>
 
@@ -184,8 +184,209 @@
             </div>
           </aside>
           <div itemprop="articleBody" class="post-body">
-            <div class="paragraph">
+            <div id="preamble">
+<div class="sectionbody">
+<div id="toc" class="toc">
+<div id="toctitle" class="title">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_links">links</a></li>
+<li><a href="#_simple_task">simple task</a></li>
+<li><a href="#_continuation">Continuation</a></li>
+<li><a href="#_r_cup_ration_du_r_sultat_avec_exception_ventuelle">Récupération du résultat (avec exception éventuelle)</a></li>
+<li><a href="#_parent_child_relationship">parent/child relationship</a></li>
+<li><a href="#_asynchronus_programmation_aucun_thread">Asynchronus programmation (aucun thread)</a>
+<ul class="sectlevel2">
+<li><a href="#_async_await">async/await</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_links">links</h2>
+<div class="sectionbody">
+<div class="paragraph">
 <p>voir <a href="http://www.codeproject.com/Articles/189374/The-Basics-of-Task-Parallelism-via-C">Code project link</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_simple_task">simple task</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-c#" data-lang="c#">class myprogram {
+   static int g()
+   {
+   return 4;
+   }
+
+   static void Main(string[] args)
+   {
+     Func&lt;int&gt; myf = new Func&lt;int&gt;(g);
+     Task&lt;int&gt; t = new Task&lt;int&gt;(myf);
+     t.Start();
+     t.Wait();
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_continuation">Continuation</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-c#" data-lang="c#">using System;
+using System.Threading.Tasks;
+public class Program {
+    private static Int32 Sum(Int32 n)
+    {
+        Int32 sum = 0;
+        for (; n &gt; 0; n--)
+        checked { sum += n; }
+        return sum;
+    }
+    public static void Main() {
+        // Create Task, defer starting it, continue with another task
+        Task&lt;int32&gt; t = new Task&lt;int32&gt;(n =&gt; Sum((Int32)n), 1000);
+        t.Start();
+        // notice the use of the Result property
+        Task cwt = t.ContinueWith(task =&gt; Console.WriteLine(
+                        "The sum is: " + task.Result));
+        cwt.Wait();  // For the testing only
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_r_cup_ration_du_r_sultat_avec_exception_ventuelle">Récupération du résultat (avec exception éventuelle)</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-c#" data-lang="c#">using System;
+using System.Threading;
+using System.Threading.Tasks;
+public class Program {
+
+    private static Int32 Sum(CancellationToken ct, Int32 n) {
+        Int32 sum = 0;
+        for (; n &gt; 0; n--) {
+            ct.ThrowIfCancellationRequested();
+
+            //Thread.Sleep(0);   // Simulate taking a long time
+            checked { sum += n; }
+        }
+        return sum;
+    }
+
+    public static void Main() {
+        CancellationTokenSource cts = new CancellationTokenSource();
+        Task&lt;int32&gt; t = new Task&lt;int32&gt;(() =&gt; Sum(cts.Token, 1000), cts.Token);
+        t.Start();
+        cts.Cancel();
+
+        try {
+            // If the task got canceled, Result will throw an AggregateException
+            Console.WriteLine("The sum is: " + t.Result);   // An Int32 value
+        }
+        catch (AggregateException ae) {
+            ae.Handle(e =&gt; e is OperationCanceledException);
+            Console.WriteLine("Sum was canceled");
+        }
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_parent_child_relationship">parent/child relationship</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-c#" data-lang="c#">using System;
+using System.Threading;
+using System.Threading.Tasks;
+public class Program {
+    private static Int32 Sum(Int32 n)
+    {
+        Int32 sum = 0;
+        for (; n &gt; 0; n--)
+        checked { sum += n; }
+        return sum;
+    }
+
+    public static void Main() {
+
+        Task&lt;int32[]&gt; parent = new Task&lt;int32[]&gt;(() =&gt; {
+            var results = new Int32[3];   // Create an array for the results
+
+            // This tasks creates and starts 3 child tasks
+            new Task(() =&gt; results[0] = Sum(100),
+                TaskCreationOptions.AttachedToParent).Start();
+            new Task(() =&gt; results[1] = Sum(200),
+                TaskCreationOptions.AttachedToParent).Start();
+            new Task(() =&gt; results[2] = Sum(300),
+                TaskCreationOptions.AttachedToParent).Start();
+
+            // Returns a reference to the array
+            // (even though the elements may not be initialized yet)
+            return results;
+        });
+
+        // When the parent and its children have
+        // run to completion, display the results
+        var cwt = parent.ContinueWith(parentTask =&gt;
+                            Array.ForEach(parentTask.Result, Console.WriteLine));
+
+        // Start the parent Task so it can start its children
+        parent.Start();
+
+        cwt.Wait(); // For testing purposes
+    }</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_asynchronus_programmation_aucun_thread">Asynchronus programmation (aucun thread)</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_async_await">async/await</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-c#" data-lang="c#">async Task&lt;int&gt; AccessTheWebAsync()
+{
+    // You need to add a reference to System.Net.Http to declare client.
+    HttpClient client = new HttpClient();
+
+    // GetStringAsync returns a Task&lt;string&gt;. That means that when you await the
+    // task you'll get a string (urlContents).
+    Task&lt;string&gt; getStringTask = client.GetStringAsync("http://msdn.microsoft.com");
+
+    // You can do work here that doesn't rely on the string from GetStringAsync.
+    DoIndependentWork();
+
+    // The await operator suspends AccessTheWebAsync.
+    //  - AccessTheWebAsync can't continue until getStringTask is complete.
+    //  - Meanwhile, control returns to the caller of AccessTheWebAsync.
+    //  - Control resumes here when getStringTask is complete.
+    //  - The await operator then retrieves the string result from getStringTask.
+    string urlContents = await getStringTask;
+
+    // The return statement specifies an integer result.
+    // Any methods that are awaiting AccessTheWebAsync retrieve the length value.
+    return urlContents.Length;
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
 </div>
           </div>
           <footer class="post-footer">
