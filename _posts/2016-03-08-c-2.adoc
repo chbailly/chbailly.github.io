@@ -183,8 +183,10 @@ public class LOGFONT
 == Extension methods
 
 Ici, on ajoute une méthode à String. Une méthode existante (concrête) ne peut être étendu, l'extension ne vient qu'en 2sd priorité.+
-Ce sont des classes *static* avec mot clef this. +
-Le using du namespace d'extension +active ces extensions+
+
+* Ce sont des classes *static* avec mot clef *this*. +
+* Le using du namespace d'extension *active ces extensions* .
+
 [source,c#]
 .add method to string class
 ----
