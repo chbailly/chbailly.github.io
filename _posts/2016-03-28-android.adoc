@@ -104,6 +104,9 @@ image::http://developer.android.com/images/activity_lifecycle.png[link="http://d
 image::http://developer.android.com/images/fundamentals/restore_instance.png[link="http://developer.android.com/images/fundamentals/restore_instance.png"]
 
 == fragments
+
+Permet de décomposer en sous activités  et de faire une interface  différentes entre tablette/smartphone.
+
 === Création UI
 
 [source,java]
@@ -156,8 +159,11 @@ transaction.commit();
 
 === interacton fragment/activity
 
-
 A compléter 
+On peut récupérer  l'activité  du fragment ( get activity ?) ou inversement demander un des fragments depuis  l'activité.  
+
+En général,  suite à un événement dans un fragment on appelle le appelle le listener ( on enregistre le listener lors du onattach du fragment) qui transmet au second fragment. 
+
 == service
 
 Un service est une activité sans UI.
