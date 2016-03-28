@@ -1,5 +1,6 @@
 = android
 :toc: macro
+:setanchors:
 
 
 toc::[]
@@ -8,18 +9,7 @@ toc::[]
 
 === declaration dans manifest
 
-Chaque activity doit être déclarée dnas un element <activity>. Il faut "exporter" (intent-filter) l'actibité principale pour qu'elle soit launchable.
-
-[source,xml]
-----
-<activity android:name="MainActivity">
-    <!-- This activity is the main entry, should appear in app launcher -->
-    <intent-filter>
-        <action android:name="android.intent.action.MAIN" />
-        <category android:name="android.intent.category.LAUNCHER" />
-    </intent-filter>
-</activity>
-----
+Chaque activité déclarée peut avoir un intent associée pour qu'elle soit appelable (exportée) -> cf exemple (<<active_declare,declaration activité>>
 
 
 
@@ -81,3 +71,20 @@ Intent intent = getIntent();
 String message = intent.getStringExtra(MyActivity.EXTRA_MESSAGE);
 ----
 
+== activity 
+
+=== declaration
+
+Chaque activity doit être déclarée dnas un element <activity>. Il faut "exporter" (intent-filter) l'actibité principale pour qu'elle soit launchable.
+
+[[active_declare]]
+[source,xml]
+----
+<activity android:name="MainActivity">
+    <!-- This activity is the main entry, should appear in app launcher -->
+    <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+    </intent-filter>
+</activity>
+----
