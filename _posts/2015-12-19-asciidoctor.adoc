@@ -16,7 +16,7 @@ toc:[] // a l'endroit d'insertion
 
 [[debut]]
 
-== links
+== links/images
 
 [cols="2*"]
 |====
@@ -27,7 +27,13 @@ https://url[text du lien]
 a|https://oddmuse.org[text du lien]
 
 a|
-lien interne
+.lien interne
+[literal]
+image:file_ou_url[lik="url_to_call_when click"]
+a|
+
+a|
+.lien interne
 [literal]
 link:name[text du lien]
 a|link:titre4[titre4]
