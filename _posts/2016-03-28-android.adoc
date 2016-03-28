@@ -176,6 +176,8 @@ Le service doit implémenter *onService()*
 
 WARNING: Le service s'éxécute dans le threas de l'appli appelante, il faut souvent créer un thread pour éviter de bloquer le thread de l'appli (le IntentService le fait)
 
-Lorsqu'un service dérice de *IntentService*, un thread est crée qui va recevoir les requêtes et les traiter une à une. Le service s'arrête tout seul => très simple, il faut implémenter
+Lorsqu'un service dérice de *IntentService*, un thread est crée qui va recevoir les requêtes et les traiter une à une (on empile les requêtes en attente). Le service s'arrête tout seul => très simple, il faut implémenter
 [literal]
 onHandleIntent(Intent intent)
+
+Lorsqu'on dérive de service on gère les threads soit même, on peut donc traiter plusieurs demandes en même temps.
