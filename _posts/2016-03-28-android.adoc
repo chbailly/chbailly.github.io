@@ -153,3 +153,29 @@ transaction.addToBackStack(null);
 // Commit the transaction
 transaction.commit();
 ----
+
+== service
+
+Un service est une activité sans UI.
+
+=== déclaration
+
+Dans manifest (element service dans manifest/application)
+
+=== started service (via *startService*)
+
+Started via une activité, mais non liée à celle-ci (peut tourner indéfinniment même lorsque l'activité s'arrête). Pas de résultat retourné en général, le service s'arrête tout seul lorsque c'est terminé).
+Le service doit implémenter *onStart()*
+
+=== bound service (via *bindService*)
+
+C'est un peu un mode client/serveur, lié à l'activité. 
+Le service doit implémenter *onService()*
+
+=== modes (intent ou multithread)
+
+WARNING: Le service s'éxécute dans le threas de l'appli appelante, il faut souvent créer un thread pour éviter de bloquer le thread de l'appli (le IntentService le fait)
+
+Lorsqu'un service dérice de *IntentService*, un thread est crée qui va recevoir les requêtes et les traiter une à une. Le service s'arrête tout seul => très simple, il faut implémenter
+[literal]
+onHandleIntent(Intent intent)
