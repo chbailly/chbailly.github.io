@@ -27,7 +27,7 @@ https://url[text du lien]
 a|https://oddmuse.org[text du lien]
 
 a|
-.lien interne
+.image
 [literal]
 image:file_ou_url[lik="url_to_call_when click"]
 a|
