@@ -2,11 +2,63 @@
 
 == intent
 
+=== declaration dans manifest
+
+Chaque activity doit être déclarée dnas un element <activity>. Il faut "exporter" (intent-filter) l'actibité principale pour qu'elle soit launchable.
+
+[source,xml]
+----
+<activity android:name="MainActivity">
+    <!-- This activity is the main entry, should appear in app launcher -->
+    <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+    </intent-filter>
+</activity>
+----
+
+
+
+=== explicit intent
+
+* Invocation
+
+[literal]
+Intent(Context packageContext, Class<?> cls)
+
+
+[source,java]
+.Example (this est l'activity)
+----
+Intent intent = new Intent(this, SignInActivity.class);
+startActivity(intent);
+----
+
 === Implicit intent
+
+
+* Invocation
+
+[source,java]
+----
+// Create the text message with a string
+Intent sendIntent = new Intent();
+sendIntent.setAction(Intent.ACTION_SEND);
+sendIntent.putExtra(Intent.EXTRA_TEXT, textMessage);
+sendIntent.setType("text/plain");
+
+// Verify that the intent will resolve to an activity
+if (sendIntent.resolveActivity(getPackageManager()) != null) {
+    startActivity(sendIntent);
+}
+----
 
 * declaration dans manifest
 
+Se fait dans le *manifest* , permet d'exporter l'intent pour qu'il soir appelable. On définit le profil de la méthode (attend un texte par exemple)
+
 [source,xml]
+.Intent in manifest
 ----
 <activity android:name="ShareActivity">
     <intent-filter>
@@ -17,4 +69,11 @@
 </activity>
 ----
 
-=== Explicit
+=== Réception des données
+
+.Recieve in onCreate
+----
+Intent intent = getIntent();
+String message = intent.getStringExtra(MyActivity.EXTRA_MESSAGE);
+----
+
