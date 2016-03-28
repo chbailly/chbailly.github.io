@@ -80,7 +80,7 @@
     <meta property="og:description" content="Table of Contents intent declaration dans manifest startActivity(intent) explicit intent Implicit intent Réception des données activity declaration cycle de vie différentes etat/boucles onSaveInstanceState/onRestoreInstanceData fragments Création UI Ajout à une activity via layo..." />
     <meta property="og:url" content="https://chbailly.github.io/2016/03/28/android.html" />
     <meta property="article:published_time" content="2016-03-27T22:00:00.000Z" />
-    <meta property="article:modified_time" content="2016-03-28T19:59:49.371Z" />
+    <meta property="article:modified_time" content="2016-03-28T20:28:44.006Z" />
     
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="android" />
@@ -102,7 +102,7 @@
     "headline": "android",
     "url": "https://chbailly.github.io/2016/03/28/android.html",
     "datePublished": "2016-03-27T22:00:00.000Z",
-    "dateModified": "2016-03-28T19:59:49.371Z",
+    "dateModified": "2016-03-28T20:28:44.006Z",
     "description": "Table of Contents intent declaration dans manifest startActivity(intent) explicit intent Implicit intent Réception des données activity declaration cycle de vie différentes etat/boucles onSaveInstanceState/onRestoreInstanceData fragments Création UI Ajout à une activity via layo..."
 }
     </script>
@@ -219,6 +219,14 @@
 </ul>
 </li>
 <li><a href="#_transactions">transactions</a></li>
+</ul>
+</li>
+<li><a href="#_service">service</a>
+<ul class="sectlevel2">
+<li><a href="#_d_claration">déclaration</a></li>
+<li><a href="#_started_service_via_strong_startservice_strong">started service (via <strong>startService</strong>)</a></li>
+<li><a href="#_bound_service_via_strong_bindservice_strong">bound service (via <strong>bindService</strong>)</a></li>
+<li><a href="#_modes_intent_ou_multithread">modes (intent ou multithread)</a></li>
 </ul>
 </li>
 </ul>
@@ -418,6 +426,57 @@ transaction.addToBackStack(null);
 
 // Commit the transaction
 transaction.commit();</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_service">service</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Un service est une activité sans UI.</p>
+</div>
+<div class="sect2">
+<h3 id="_d_claration">déclaration</h3>
+<div class="paragraph">
+<p>Dans manifest (element service dans manifest/application)</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_started_service_via_strong_startservice_strong">started service (via <strong>startService</strong>)</h3>
+<div class="paragraph">
+<p>Started via une activité, mais non liée à celle-ci (peut tourner indéfinniment même lorsque l&#8217;activité s&#8217;arrête). Pas de résultat retourné en général, le service s&#8217;arrête tout seul lorsque c&#8217;est terminé).
+Le service doit implémenter <strong>onStart()</strong></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_bound_service_via_strong_bindservice_strong">bound service (via <strong>bindService</strong>)</h3>
+<div class="paragraph">
+<p>C&#8217;est un peu un mode client/serveur, lié à l&#8217;activité.
+Le service doit implémenter <strong>onService()</strong></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_modes_intent_ou_multithread">modes (intent ou multithread)</h3>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Le service s'éxécute dans le threas de l&#8217;appli appelante, il faut souvent créer un thread pour éviter de bloquer le thread de l&#8217;appli (le IntentService le fait)
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Lorsqu&#8217;un service dérice de <strong>IntentService</strong>, un thread est crée qui va recevoir les requêtes et les traiter une à une. Le service s&#8217;arrête tout seul &#8658; très simple, il faut implémenter</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>onHandleIntent(Intent intent)</pre>
 </div>
 </div>
 </div>
