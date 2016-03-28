@@ -117,6 +117,7 @@ public static class ExampleFragment extends Fragment {
         return inflater.inflate(R.layout.example_fragment, container, false);
     }
 }
+----
 
 === Ajout à un e activity
 
