@@ -80,7 +80,7 @@
     <meta property="og:description" content="Table of Contents intent declaration dans manifest startActivity(intent) explicit intent Implicit intent Réception des données activity declaration cycle de vie différentes etat/boucles onSaveInstanceState/onRestoreInstanceData fragments Création UI Ajout à une activity via layo..." />
     <meta property="og:url" content="https://chbailly.github.io/2016/03/28/android.html" />
     <meta property="article:published_time" content="2016-03-27T22:00:00.000Z" />
-    <meta property="article:modified_time" content="2016-03-28T20:30:27.503Z" />
+    <meta property="article:modified_time" content="2016-03-28T20:56:39.935Z" />
     
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="android" />
@@ -102,7 +102,7 @@
     "headline": "android",
     "url": "https://chbailly.github.io/2016/03/28/android.html",
     "datePublished": "2016-03-27T22:00:00.000Z",
-    "dateModified": "2016-03-28T20:30:27.503Z",
+    "dateModified": "2016-03-28T20:56:39.935Z",
     "description": "Table of Contents intent declaration dans manifest startActivity(intent) explicit intent Implicit intent Réception des données activity declaration cycle de vie différentes etat/boucles onSaveInstanceState/onRestoreInstanceData fragments Création UI Ajout à une activity via layo..."
 }
     </script>
@@ -227,6 +227,13 @@
 <li><a href="#_started_service_via_strong_startservice_strong">started service (via <strong>startService</strong>)</a></li>
 <li><a href="#_bound_service_via_strong_bindservice_strong">bound service (via <strong>bindService</strong>)</a></li>
 <li><a href="#_modes_intent_ou_multithread">modes (intent ou multithread)</a></li>
+</ul>
+</li>
+<li><a href="#_provider">provider</a>
+<ul class="sectlevel2">
+<li><a href="#_acc_s_en_lecture">accès en lecture</a></li>
+<li><a href="#_api">API</a></li>
+<li><a href="#_example">example</a></li>
 </ul>
 </li>
 </ul>
@@ -481,6 +488,98 @@ Le service s'éxécute dans le threas de l&#8217;appli appelante, il faut souven
 </div>
 <div class="paragraph">
 <p>Lorsqu&#8217;on dérive de service on gère les threads soit même, on peut donc traiter plusieurs demandes en même temps.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_provider">provider</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>C&#8217;est l'équivalent du SQL.
+L&#8217;URI est décomposé:
+  content://user_dictionary/words</p>
+</div>
+<div class="paragraph">
+<p>Le content est le <strong>scheme</strong>, user_dictionary est le <strong>provider&#8217;s authority</strong> et words est la <strong>table</strong></p>
+</div>
+<div class="sect2">
+<h3 id="_acc_s_en_lecture">accès en lecture</h3>
+<div class="paragraph">
+<p>Pour avoir accès au provider, il faut demander à y avoir accès (c&#8217;est le user qui va accepter ou non) via l'élément <strong>&lt;uses-permission&gt;</strong></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_api">API</h3>
+<div class="listingblock">
+<div class="title">Request provider</div>
+<div class="content">
+<pre>// Queries the user dictionary and returns results
+mCursor = getContentResolver().query(
+    UserDictionary.Words.CONTENT_URI,   // The content URI of the words table
+    mProjection,                        // The columns to return for each row
+    mSelectionClause                    // Selection criteria
+    mSelectionArgs,                     // Selection criteria
+    mSortOrder);                        // The sort order for the returned rows</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_example">example</h3>
+<div class="listingblock">
+<div class="title">Select sur un mot dans la table du dictionnaire</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">String[] mSelectionArgs = {""};
+
+// Gets a word from the UI
+mSearchString = mSearchWord.getText().toString();
+
+// Remember to insert code here to check for invalid or malicious input.
+
+// If the word is the empty string, gets everything
+if (TextUtils.isEmpty(mSearchString)) {
+    // Setting the selection clause to null will return all words
+    mSelectionClause = null;
+    mSelectionArgs[0] = "";
+
+} else {
+    // Constructs a selection clause that matches the word that the user entered.
+    mSelectionClause = UserDictionary.Words.WORD + " = ?";
+
+    // Moves the user's input string to the selection arguments.
+    mSelectionArgs[0] = mSearchString;
+
+}
+
+// Does a query against the table and returns a Cursor object
+mCursor = getContentResolver().query(
+    UserDictionary.Words.CONTENT_URI,  // The content URI of the words table
+    mProjection,                       // The columns to return for each row
+    mSelectionClause                   // Either null, or the word the user entered
+    mSelectionArgs,                    // Either empty, or the string the user entered
+    mSortOrder);                       // The sort order for the returned rows
+
+// Some providers return null if an error occurs, others throw an exception
+if (null == mCursor) {
+    /*
+     * Insert code here to handle the error. Be sure not to use the cursor! You may want to
+     * call android.util.Log.e() to log this error.
+     *
+     */
+// If the Cursor is empty, the provider found no matches
+} else if (mCursor.getCount() &lt; 1) {
+
+    /*
+     * Insert code here to notify the user that the search was unsuccessful. This isn't necessarily
+     * an error. You may want to offer the user the option to insert a new row, or re-type the
+     * search term.
+     */
+
+} else {
+    // Insert code here to do something with the results
+
+}</code></pre>
+</div>
 </div>
 </div>
 </div>
