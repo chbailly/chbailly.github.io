@@ -93,4 +93,11 @@ Chaque activity doit être déclarée dnas un element <activity>. Il faut "expor
 ----
 
 === cycle de vie
+
+==== différentes etat/boucles
+
 image::http://developer.android.com/images/activity_lifecycle.png[link="http://developer.android.com/images/activity_lifecycle.png"]
+
+====  onSaveInstanceState/onRestoreInstanceData
+
+image::http://developer.android.com/images/fundamentals/restore_instance.png[link="http://developer.android.com/images/fundamentals/restore_instance.png"]
