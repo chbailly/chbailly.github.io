@@ -11,9 +11,12 @@ toc::[]
 
 Chaque activité déclarée peut avoir un intent associée pour qu'elle soit appelable (exportée) -> cf exemple (<<active_declare,declaration activité>>
 
+=== startActivity(intent)
 
+C'est l'intent qui contient l'information sur l'activité à démarrer. Elle peut être *explicit* ou *implicit*
 
 === explicit intent
+
 
 * Invocation
 
@@ -71,7 +74,7 @@ Intent intent = getIntent();
 String message = intent.getStringExtra(MyActivity.EXTRA_MESSAGE);
 ----
 
-== activity 
+== activity
 
 === declaration
 
@@ -88,3 +91,6 @@ Chaque activity doit être déclarée dnas un element <activity>. Il faut "expor
     </intent-filter>
 </activity>
 ----
+
+=== cycle de vie
+image::http://developer.android.com/images/activity_lifecycle.png[link="http://developer.android.com/images/activity_lifecycle.png"]
