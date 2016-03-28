@@ -154,6 +154,10 @@ transaction.addToBackStack(null);
 transaction.commit();
 ----
 
+=== interacton fragment/activity
+
+
+A compléter 
 == service
 
 Un service est une activité sans UI.
