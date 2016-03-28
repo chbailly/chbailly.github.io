@@ -119,7 +119,7 @@ public static class ExampleFragment extends Fragment {
 }
 ----
 
-=== Ajout à un e activity
+=== Ajout à une activity
 
 ==== via layout de l'activity
 
