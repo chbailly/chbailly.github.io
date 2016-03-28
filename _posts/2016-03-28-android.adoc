@@ -102,3 +102,53 @@ image::http://developer.android.com/images/activity_lifecycle.png[link="http://d
 ====  onSaveInstanceState/onRestoreInstanceData
 
 image::http://developer.android.com/images/fundamentals/restore_instance.png[link="http://developer.android.com/images/fundamentals/restore_instance.png"]
+
+== fragments
+=== Création UI
+
+[source,java]
+.Call inflate to create associated UI (in *example_fragment.xml*)
+----
+public static class ExampleFragment extends Fragment {
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.example_fragment, container, false);
+    }
+}
+
+=== Ajout à un e activity
+
+==== via layout de l'activity
+
+[source,java]
+.Ajout dans LinearLayout (par exemple)
+----
+<fragment android:name="com.example.news.ArticleListFragment"
+       android:id="@+id/list"
+       android:layout_weight="1"
+       android:layout_width="0dp"
+       android:layout_height="match_parent" />
+----
+
+==== Par la programmation (cf transactions)
+
+=== transactions 
+
+Gère l'ajout/remove/replace dans une transaction qui sera ajoutée à la backstrace
+
+[source,java]
+----
+// Create new fragment and transaction
+Fragment newFragment = new ExampleFragment();
+FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+// Replace whatever is in the fragment_container view with this fragment,
+// and add the transaction to the back stack
+transaction.replace(R.id.fragment_container, newFragment);
+transaction.addToBackStack(null);
+
+// Commit the transaction
+transaction.commit();
+----
