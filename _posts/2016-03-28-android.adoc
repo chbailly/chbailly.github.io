@@ -1,4 +1,8 @@
 = android
+:toc: macro
+
+
+toc:[]
 
 == intent
 
