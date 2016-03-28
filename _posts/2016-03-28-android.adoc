@@ -184,7 +184,7 @@ Lorsqu'on dérive de service on gère les threads soit même, on peut donc trait
 
 == loaders
 
-A compléter !!!
+A compléter !!! (load asynchrone)
 
 == provider
 
