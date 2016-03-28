@@ -182,6 +182,10 @@ onHandleIntent(Intent intent)
 
 Lorsqu'on dérive de service on gère les threads soit même, on peut donc traiter plusieurs demandes en même temps.
 
+== loaders
+
+A compléter !!!
+
 == provider
 
 C'est l'équivalent du SQL.
