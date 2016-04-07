@@ -15,7 +15,7 @@ S'exerce à terme
 === put, call, cap floor
 Les caps et les floors sont les pendants des put et call sur fixed income.
 
-== forward/future
+== option/forward/future
 
 * forward
 
@@ -23,7 +23,6 @@ Marché de gré à gré
 
 FRA::
 forward rate agreement
-
 
 * future (marché à terme)
 
