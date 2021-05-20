@@ -33,3 +33,20 @@ auto make_logger3(R (*func)(Args...), const string& name)
     name);
 }
 ```
+
+Classes enrichissent la clase encapsulée
+====
+
+```c++
+struct TransparentShape : Shape
+{
+  Shape& shape;
+  uint8_t transparency;
+
+
+  TransparentShape(Shape& shape, const uint8_t transparency)
+    : shape{shape},
+      transparency{transparency}
+  {
+  }
+```
