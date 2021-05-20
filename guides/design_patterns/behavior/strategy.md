@@ -6,7 +6,7 @@ High level algorithm (making hot beverage) et low level algorithm (specific for 
 Dynamic
 =====
 
-```` c++
+``` c++
 
 num class OutputFormat
 {
